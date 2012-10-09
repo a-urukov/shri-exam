@@ -1,0 +1,15 @@
+block b-day-sheduler {
+    content: [
+        {
+            block: 'b-lectures-container',
+            content: { 
+                block: 'b-lectures-list'
+            }
+        },
+        {
+            block: 'b-link',
+            mods: { action: 'add-lecture' },
+            content: 'Добавить лекцию'
+        }
+    ]
+}

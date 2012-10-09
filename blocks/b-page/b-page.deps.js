@@ -8,6 +8,9 @@
         {
             block: 'i-bem',
             elem: 'i18n'
+        },
+        {
+            block: 'i-lectures'
         }
     ]
 })

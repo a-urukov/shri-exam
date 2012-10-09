@@ -39,6 +39,10 @@
                     },
                     {
                         block: 'b-month-calendar'
+                    },
+                    {
+                        block: 'b-day-sheduler',
+                        js: true
                     }
                 ]
             }

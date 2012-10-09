@@ -148,4 +148,3 @@ var a = new LecturesShedule();
 
 b = a.exportShedule();
 c = a.importShedule(b);
-

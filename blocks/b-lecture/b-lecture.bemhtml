@@ -1,0 +1,3 @@
+block b-lecture {
+    content: { return this.ctx.caption; }
+}

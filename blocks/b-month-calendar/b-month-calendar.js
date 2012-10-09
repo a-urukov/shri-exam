@@ -21,7 +21,10 @@ BEM.DOM.decl('b-month-calendar', {
         }
     
         var calendarMonth = new Array();
-        while (((date.getMonth() <= month) && (date.getYear() <= year) || (date.getYear() < year)) || (date.getDay() != 1)) {
+        var y = date.getYear();
+        
+        while (((date.getMonth() <= month) && (y <= year) || (y < year)) || (date.getDay() != 1)) {
+            y = date.getYear();
             calendarMonth.push(new Date(date.valueOf()));
             date.setDate(date.getDate() + 1);
         }

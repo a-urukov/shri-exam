@@ -1,0 +1,20 @@
+.b-dialog {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    display: none;
+}
+
+.b-dialog-box
+{
+    position: relative;
+    width: 250px;
+    height: 400px;
+    background-color: #ffffff;
+    margin: 0 auto;
+    top: 200px;
+}

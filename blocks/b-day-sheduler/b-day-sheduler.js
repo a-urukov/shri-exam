@@ -5,19 +5,59 @@
 
 BEM.DOM.decl('b-day-sheduler', {
     
+    getBemjsonForLecture : function(lecture) {
+        return  {
+                    block: 'b-lecture',
+                    caption: lecture.caption
+                }
+    },
+    
     onChangeActiveDay : function (date) {
         this.activeDay = new Date(date);
         var lectures = lecturesShedule.getLecturesByDate(date);
         var bemjson = new Array();
                  
         for (var i=0; i < lectures.length; i++) {
-            bemjson.push({
-                block: 'b-lecture',
-                caption: lectures[i].caption
-            });
+            bemjson.push(this.getBemjsonForLecture(lectures[i]));
         };
         
-        BEM.DOM.update(this.findBlockInside('b-lectures-container').domElem, BEMHTML.apply({ block: 'b-lectures-list', content: bemjson }));
+        if (!this.lecturesContainer) {
+            this.lecturesContainer = this.findBlockInside('b-lectures-container');
+        };
+        
+        BEM.DOM.update(this.lecturesContainer.domElem, BEMHTML.apply({ block: 'b-lectures-list', content: bemjson }));
+    },
+    
+    addLectureFormDialog : function (dialog) {
+          
+        var form = dialog.findBlockInside('b-add-lecture-form');
+        
+        if (!form) {
+            return;
+        }
+        
+        var rawParams = form.domElem.serializeArray();
+        var proceedParams = new Object();
+        
+        for (var i=0; i < rawParams.length; i++) {
+            proceedParams[rawParams[i].name] = rawParams[i].value;
+        }
+        
+        var newLecture = lecturesShedule.addLecture(proceedParams['caption'], 'testLecture', this.activeDay);
+        
+        var lecturesBlock = this.findBlockInside('b-lectures-list');
+        
+        if (lecturesBlock.findBlockInside('b-lecture')) {
+            BEM.DOM.append(lecturesBlock.domElem, BEMHTML.apply(this.getBemjsonForLecture(newLecture)));
+        }
+        else {
+            BEM.DOM.update(this.lecturesContainer.domElem, BEMHTML.apply({ block: 'b-lectures-list', content: [ this.getBemjsonForLecture(newLecture) ]}));
+        }
+        
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
+        }
+        
     },
     
     onSetMod : {

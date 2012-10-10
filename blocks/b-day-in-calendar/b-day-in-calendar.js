@@ -10,7 +10,10 @@ BEM.DOM.decl('b-day-in-calendar', {
     },
     
     activate : function() {
-      this.findBlockOutside('b-page').findBlockInside('b-day-sheduler').onChangeActiveDay(this.params.date);
+        if (!this.container) {
+            this.container = this.findBlockOutside('b-month-calendar');
+        }
+        this.container.changeActiveDay(this);
     },
     
     onSetMod : {

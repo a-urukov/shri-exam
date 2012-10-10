@@ -7,6 +7,7 @@ BEM.DOM.decl('b-month-calendar', {
 
     // Возвращает массив Date, представляющий месяц (month, year) в каледаре
     initCalendarMonth: function (date) {
+        date.setDate(1);
         var dayOfWeek = date.getDay(date);
         var month = date.getMonth();
         var year = date.getYear(); 
@@ -31,7 +32,21 @@ BEM.DOM.decl('b-month-calendar', {
     
         return calendarMonth;
     },
-
+    
+    changeActiveDay : function(day) {
+        if (!this.dayShedulerBlock) {
+            this.dayShedulerBlock = this.findBlockOutside('b-page').findBlockInside('b-day-sheduler');
+        }
+        if (this.activeDay) {
+            this.activeDay.setMod('active', 'no');
+        }
+        
+        this.activeDay = day;
+        this.activeDay.setMod('active', 'yes');
+        
+        this.dayShedulerBlock.onChangeActiveDay(day.params.date);
+    },
+    
     // смена месяца
     onChangeMonth: function (date) {
         var dateArray = this.initCalendarMonth(new Date(date));
@@ -51,8 +66,23 @@ BEM.DOM.decl('b-month-calendar', {
         };
         
         BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        
+        // смена активного дня
+        this.activeDay = undefined;
+        
+        var now = new Date();
+        var selectedMonth = date.getMonth();
+        var searchingDay = ((now.getYear() == date.getYear()) && (now.getMonth() == selectedMonth)) ? now.getDate() : 1;
+        var daysBlocks = this.findBlocksInside('b-day-in-calendar');
+        
+        for (var i=0; i < daysBlocks.length; i++) {
+            if ((daysBlocks[i].params.date.getMonth() == selectedMonth) && (daysBlocks[i].params.date.getDate() == searchingDay)) {
+                this.changeActiveDay(daysBlocks[i]);
+                break;
+            }
+        };
     },
-
+    
     onSetMod : {
 
         'js' : function() {

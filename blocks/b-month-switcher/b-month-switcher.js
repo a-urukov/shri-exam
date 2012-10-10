@@ -45,7 +45,12 @@ BEM.DOM.decl('b-month-switcher', {
     
     onChangeMonth : function () {
         BEM.DOM.update(this.elem('current-month'), this.dateToMonthAndYear(this.params.curMonthValue));
-        this.findBlockOutside('b-page').findBlockInside('b-month-calendar').onChangeMonth(this.params.curMonthValue);
+        
+        if (!this.monthCalendar) {
+            this.monthCalendar = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
+        };
+                
+        this.monthCalendar.onChangeMonth(this.params.curMonthValue);
     },
 
     onSetMod : {

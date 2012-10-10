@@ -1,0 +1,105 @@
+/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-lecture.css begin */
+.b-dialog-content_type_add-lecture
+{
+}
+
+/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-lecture.css end */
+
+/* ../../blocks/b-month-switcher/b-month-switcher.css begin */
+.b-month-switcher
+{
+}
+
+/* ../../blocks/b-month-switcher/b-month-switcher.css end */
+
+/* ../../blocks/b-link/b-link.css begin */
+.b-link
+{
+
+}
+
+/* ../../blocks/b-link/b-link.css end */
+
+/* ../../bem-bl/blocks-desktop/b-link/_pseudo/b-link_pseudo_yes.css begin */
+.b-link_pseudo_yes
+{
+    color: #1a3dc1;
+}
+
+.i-ua_js_yes .b-link_pseudo_yes
+{
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.i-ua_js_yes .b-link_pseudo_yes .b-link__inner
+{
+    text-decoration: none;
+
+    color: inherit;
+    border-bottom: 1px dotted;
+}
+
+/* ../../bem-bl/blocks-desktop/b-link/_pseudo/b-link_pseudo_yes.css end */
+
+/* ../../blocks/b-day-in-calendar/b-day-in-calendar.css begin */
+.b-day-in-calendar_active_yes {
+    background-color: red;
+}
+
+/* ../../blocks/b-day-in-calendar/b-day-in-calendar.css end */
+
+/* ../../blocks/b-month-calendar/b-month-calendar.css begin */
+.b-month-calendar
+{
+}
+
+/* ../../blocks/b-month-calendar/b-month-calendar.css end */
+
+/* ../../blocks/b-lecture/b-lecture.css begin */
+.b-lecture
+{
+}
+
+/* ../../blocks/b-lecture/b-lecture.css end */
+
+/* ../../blocks/b-lectures-list/b-lectures-list.css begin */
+.b-lectures-list
+{
+}
+
+/* ../../blocks/b-lectures-list/b-lectures-list.css end */
+
+/* ../../blocks/b-day-sheduler/b-day-sheduler.css begin */
+.b-day-sheduler {
+    color: red;
+    width: 100%;
+}
+
+/* ../../blocks/b-day-sheduler/b-day-sheduler.css end */
+
+/* ../../blocks/b-dialog/b-dialog.css begin */
+.b-dialog {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    display: none;
+}
+
+.b-dialog-box
+{
+    position: relative;
+    width: 250px;
+    height: 400px;
+    background-color: #ffffff;
+    margin: 0 auto;
+    top: 200px;
+}
+
+/* ../../blocks/b-dialog/b-dialog.css end */
+

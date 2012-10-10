@@ -62,13 +62,73 @@ function Lecture(caption, lector, date) {
         var result = new Array();
         
         for (var id in this.lectures) {
-            if ((this.lectures[id].date.getDate() == date.getDate()) &&
-                (this.lectures[id].date.getDate() == date.getDate()) &&
+            if ((this.lectures[id].date.getYear() == date.getYear()) &&
+                (this.lectures[id].date.getMonth() == date.getMonth()) &&
                 (this.lectures[id].date.getDate() == date.getDate()))
             {
                 result.push(this.lectures[id]);
-            };
-        };
+            }
+        }
+        
+        return result;
+    }
+    
+       /**
+    * Возвращает список лекций за данный месяц сгрупированный по дням и отсортированный
+    * @param {Date} data дата проведения лекций
+    * @this {LecturesShedule}
+    * @returns {Array} Лекции
+    */
+    LecturesShedule.prototype.getAllLecturesGroupedByDay = function (year, month) {
+        var result = new Array();
+        
+        for (var id in this.lectures) {
+            
+            if (year) {
+                if (this.lectures[id].date.getYear() != year) {
+                    continue;
+                }
+            }
+            if (month) {
+                if (this.lectures[id].date.getMonth() != month) {
+                    continue;
+                }
+            }
+            
+            var flagAdded = false;
+            var l = result.length;
+            
+            for (var i=0; i < l; i++) {
+                if ((this.lectures[id].date.getYear() == result[i].date.getYear()) &&
+                    (this.lectures[id].date.getMonth() == result[i].date.getMonth()) &&
+                    (this.lectures[id].date.getDate() == result[i].date.getDate()))
+                {
+                    for (var j=0; j < result[i].lectures; j++) {
+                        if (this.lectures[id].date < result[i].lectures[j]) {
+                            result[i].lectures.splice(j, 0, [ this.lectures[id] ]);
+                            flagAdded = true;
+                            break;
+                        }
+                    }
+                    if (!flagAdded) {
+                        result[i].lectures.push(this.lectures[id]);
+                        flagAdded = true;
+                    }
+                    
+                    break;
+                }
+                else if (this.lectures[id].date < result[i].date) {
+                    result.splice(i, 0, { date: this.lectures[id].date, lectures: [ this.lectures[id] ] });
+                    flagAdded = true;
+                    
+                    break;
+                }
+            }
+            
+            if (!flagAdded) {
+                    result.push({ date: this.lectures[id].date, lectures: [ this.lectures[id] ] });
+            }
+        }
         
         return result;
     }
@@ -79,7 +139,7 @@ function Lecture(caption, lector, date) {
     * @param {String} caption название лекции 
     * @param {String} lector ФИО лектора
     * @param {Date} date дата проведения лекции
-    * @returns {LecturesShedule}
+    * @returns {Lecture}
     */
     LecturesShedule.prototype.addLecture = function (caption, lector, date) {
         var lecture = new Lecture(caption, lector, date);
@@ -92,7 +152,7 @@ function Lecture(caption, lector, date) {
         this.lecturesIdList.push(lecture.id);
         localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         
-        return this;
+        return lecture;
     }
     
     /**
@@ -102,15 +162,16 @@ function Lecture(caption, lector, date) {
     * @param {String} caption название лекции 
     * @param {String} lector ФИО лектора
     * @param {Date} date дата проведения лекции
-    * @returns {LecturesShedule}
+    * @returns {Lecture}
     */
     LecturesShedule.prototype.editLecture = function (id, caption, lector, date) {
         if (this.lectures.hasOwnProperty(id)) {
             this.lectures[id] = new Lecture(caption, lector, date);
             localStorage['l' + id] = JSON.stringify(this.lectures[id]);
+            return this.lectures[id];
         }
     
-        return this;
+        return null;
     }
     
     /**

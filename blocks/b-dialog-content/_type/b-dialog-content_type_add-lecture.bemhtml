@@ -1,0 +1,16 @@
+block b-dialog-content, mod type add-lecture  {    
+    content: {
+        block: 'b-add-lecture-form',
+        tag: 'form',
+        content: [
+            {
+                content: {
+                    elem: 'input-l-caption',
+                    tag: 'input',
+                    attrs: { name: 'caption', type: 'text' }
+                }
+            }
+        ]
+    }
+    
+}

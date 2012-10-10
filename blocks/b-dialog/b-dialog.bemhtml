@@ -1,0 +1,37 @@
+block b-dialog {
+    content: {
+        block: 'b-dialog-box',
+        content: [
+            {
+                elem: 'head',
+                content: [
+                    {
+                        elem: 'title',
+                        content: 'Dialog'
+                    },
+                    {
+                        elem: 'cross'
+                    }
+                ]
+            },
+            {
+                elem: 'content'
+            },
+            {
+                elem: 'bottom-toolbox',
+                content: [
+                    {
+                        block: 'b-link',
+                        mods: { action: 'dialog-ok', pseudo: 'yes' },
+                        content: 'ОК'
+                    },
+                    {
+                        block: 'b-link',
+                        mods: { action: 'dialog-cancel', pseudo: 'yes' },
+                        content: 'Cancel'
+                    }
+                ]
+            }
+        ]
+    }
+}

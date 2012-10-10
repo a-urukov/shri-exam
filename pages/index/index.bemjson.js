@@ -43,6 +43,10 @@
                     {
                         block: 'b-day-sheduler',
                         js: true
+                    },
+                    {
+                        block: 'b-dialog',
+                        js: true
                     }
                 ]
             }

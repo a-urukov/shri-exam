@@ -3,7 +3,7 @@
         {
             block: 'i-bem',
             elem: 'dom',
-            mods: {'init': 'auto'}
+            mods: { init: 'auto'}
         },
         {
             block: 'i-bem',
@@ -11,6 +11,10 @@
         },
         {
             block: 'i-lectures'
+        },
+        {
+            block: 'b-dialog-content', 
+            mods: { type: 'add-lecture' }
         }
     ]
 })

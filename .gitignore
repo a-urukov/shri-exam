@@ -9,6 +9,6 @@ pages/*/*.css
 !pages/*/_index.bemhtml.js
 !pages/*/_index.js
 !pages/*/jquery.min.js
-!pages/*/index.html
+!pages/*/index.ru.html
 !pages/*/_index.css
 !level.js

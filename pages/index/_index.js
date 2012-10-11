@@ -3170,8 +3170,7 @@ $(function() {
 /** @requires BEM */
 /** @requires BEM */
 
-/**
-* Лекция (конструктор)
+/** Лекция (конструктор)
 * @constructor
 * @param {String} caption название лекции 
 * @param {String} lector ФИО лектора
@@ -3184,7 +3183,17 @@ function Lecture(caption, lector, date) {
     this.date = date;
 }
 
+/** Функция сравнивает две даты без учета времени
+*/
+function checkEqualsDateWithoutTime(date1, date2) {
+    return ((date1.getYear() == date2.getYear()) &&
+            (date1.getMonth() == date2.getMonth()) &&
+            (date1.getDate() == date2.getDate()));
+} 
+
 (function(undefined) {
+    
+
     
     /**
     * Расписание лекций (конструктор)
@@ -3213,6 +3222,9 @@ function Lecture(caption, lector, date) {
                 if (lecture) {
                     lecture = JSON.parse(lecture);
                     lecture.date = new Date(lecture.date);
+                    if (!isValidDate(lecture.date)) {
+                        lecture.date = new Date();
+                    }
                     
                     jQuery.proxy(_addLectureToGroupedList, this)(lecture);
                     
@@ -3251,7 +3263,7 @@ function Lecture(caption, lector, date) {
     * @this {LecturesShedule}
     * @returns {Array} Лекции, сгруппированные по дням
     */
-    LecturesShedule.prototype.getLecturesByInterval = function (year, month, day) {
+    LecturesShedule.prototype.getLecturesByDate = function (year, month, day) {
         var result = new Array();
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
@@ -3296,6 +3308,40 @@ function Lecture(caption, lector, date) {
         return result;
     }
     
+    
+    /**
+    * Возвращает список лекций начиная с dateStart до dateEnd
+    * @param {Date} dateStart задает начало интервала лекций (может отсутствовать)
+    * @param {Date} dateEnd задает конец интервала лекций (может отсутствовать)
+    * @param {Number} day задает дневной интервал лекций (может отсутствовать)
+    * @this {LecturesShedule}
+    * @returns {Array} Лекции, сгруппированные по дням
+    */
+    LecturesShedule.prototype.getLecturesByInterval = function (dateStart, dateEnd) {
+        var result = new Array();
+        
+        dateStart.setHours(0, 0, 0, 0);
+        dateEnd.setHours(23, 59, 59, 999);
+        
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            if (dateStart) {
+                if (dateStart > this.lecsGrpByDay[i].date) {
+                    continue;
+                }
+            }
+            
+            if (dateEnd) {
+                if (dateEnd < this.lecsGrpByDay[i].date) {
+                    continue;
+                }
+            }
+            
+            result.push(this.lecsGrpByDay[i]);
+        }
+        
+        return result;
+    }
+    
     /**
     * Возвращает список лекций за определенный день
     * @param {Date} День
@@ -3303,7 +3349,7 @@ function Lecture(caption, lector, date) {
     * @returns {Array} Лекции
     */
     LecturesShedule.prototype.getLecturesByDay = function (date) {
-        var lectionsByDay = this.getLecturesByInterval(date.getYear()+1900, date.getMonth(), date.getDate());
+        var lectionsByDay = this.getLecturesByDate(date.getYear()+1900, date.getMonth(), date.getDate());
         
         if (lectionsByDay.length == 1) {
             return lectionsByDay[0].lectures;
@@ -3322,10 +3368,7 @@ function Lecture(caption, lector, date) {
         var flagAdded = false;
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
-            if ((lecture.date.getYear() == this.lecsGrpByDay[i].date.getYear()) &&
-                (lecture.date.getMonth() == this.lecsGrpByDay[i].date.getMonth()) &&
-                (lecture.date.getDate() == this.lecsGrpByDay[i].date.getDate()))
-            {
+            if (checkEqualsDateWithoutTime(lecture.date, this.lecsGrpByDay[i].date)) {
                 for (var j=0; j < this.lecsGrpByDay[i].lectures; j++) {
                     if (lecture.date < this.lecsGrpByDay[i].lectures[j]) {
                         this.lecsGrpByDay[i].lectures.splice(j, 0, lecture);
@@ -3493,6 +3536,70 @@ function Lecture(caption, lector, date) {
     
     lecturesShedule = new LecturesShedule();
 })();
+
+
+/** По заданной дате возвращает строку с названием месяца и годом*
+ *  @param {Date} date дата  
+**/
+function dateToMonthAndYearString(date) {
+    var result;
+    
+    switch (date.getMonth()) {
+        case 0:
+            result = 'Январь';
+            break;
+        case 1:
+            result = 'Февраль';
+            break;
+        case 2:
+            result = 'Март';
+            break;
+        case 3:
+            result = 'Апрель';
+            break;
+        case 4:
+            result = 'Май';
+            break;
+        case 5:
+            result = 'Июнь';
+            break;
+        case 6:
+            result = 'Июль';
+            break;
+        case 7:
+            result = 'Август';
+            break;
+        case 8:
+            result = 'Сентябрь';
+            break;
+        case 9:
+            result = 'Октябрь';
+            break;
+        case 10:
+            result = 'Ноябрь';
+            break;
+        case 11:
+            result = 'Декабрь';
+            break;
+    }
+    return result + ' ' + (date.getYear() + 1900);
+}
+
+/** По заданной дате возвращает строку с временем в формате hh:mm*
+ *  @param {Date} date дата  
+**/
+function dateToTimeString(date) {
+    var hour = date.getHours().toString();
+    var min = date.getMinutes().toString();
+    
+    return ((hour.length == 1) ? '0'+ hour : hour) + ':' + ((min.length == 1) ? '0'+ min : min); 
+}
+
+function isValidDate(d) {
+  if ( Object.prototype.toString.call(d) !== "[object Date]" )
+    return false;
+  return !isNaN(d.getTime());
+}
 ;
 /** @requires BEM */
 /** @requires BEM.DOM */
@@ -3526,26 +3633,6 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-lecture'
 
 BEM.DOM.decl('b-month-switcher', {
 
-    dateToMonthAndYear : function (date) {
-        var result;
-        switch (date.getMonth())
-        {
-            case 0: result = 'Январь'; break;
-            case 1: result = 'Февраль'; break;
-            case 2: result = 'Март'; break;
-            case 3: result = 'Апрель'; break;
-            case 4: result = 'Май'; break;
-            case 5: result = 'Июнь'; break;
-            case 6: result = 'Июль'; break;
-            case 7: result = 'Август'; break;
-            case 8: result = 'Сентябрь'; break;
-            case 9: result = 'Октябрь'; break;
-            case 10: result = 'Ноябрь'; break;
-            case 11: result = 'Декабрь'; break;
-        }
-        return result + ' ' + (date.getYear() + 1900); 
-    },
-    
     nextMonth : function () {
         this.params.curMonthValue.setMonth(this.params.curMonthValue.getMonth()+1);
         this.onChangeMonth();
@@ -3565,7 +3652,7 @@ BEM.DOM.decl('b-month-switcher', {
     },
     
     onChangeMonth : function () {
-        BEM.DOM.update(this.elem('current-month'), this.dateToMonthAndYear(this.params.curMonthValue));
+        BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
         
         if (!this.monthCalendar) {
             this.monthCalendar = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
@@ -3804,14 +3891,30 @@ BEM.DOM.decl('b-month-calendar', {
     onChangeMonth: function (date) {
         var dateArray = this.initCalendarMonth(new Date(date));
         var bemjson = new Array();
+        var lecturesByDay = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1])
         
-        for (var i=0; i < dateArray.length; i++) {
+        var j = 0;
+        for (var i = 0; i < dateArray.length; i++) {
+            var rangeLections = '';
+           
+            if (j < lecturesByDay.length) {
+                if (checkEqualsDateWithoutTime(dateArray[i], lecturesByDay[j].date)) {
+                    rangeLections =  dateToTimeString(lecturesByDay[j].lectures[0].date) + '—' 
+                                     + dateToTimeString(lecturesByDay[j].lectures[lecturesByDay[j].lectures.length-1].date);
+                    j++;
+                }
+            }
+            
             bemjson.push( {
                 block: 'b-day-in-calendar',
                 content: [
                     {
                         elem: 'day-num',
                         content: dateArray[i].getDate()
+                    },
+                    {
+                        elem: 'rangeLectionsTime',
+                        content: rangeLections
                     }
                 ],
                 js: { date: dateArray[i] }
@@ -3942,7 +4045,7 @@ BEM.DOM.decl('b-day-sheduler', {
             proceedParams[rawParams[i].name] = rawParams[i].value;
         }
         
-        var newLecture = lecturesShedule.addLecture(proceedParams['caption'], 'testLecture', this.activeDay);
+        var newLecture = lecturesShedule.addNewLecture(proceedParams['caption'], 'testLecture', this.activeDay);
         
         var lecturesBlock = this.findBlockInside('b-lectures-list');
         

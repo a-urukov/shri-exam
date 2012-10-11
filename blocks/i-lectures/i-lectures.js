@@ -14,6 +14,14 @@ function Lecture(caption, lector, date) {
     this.date = date;
 }
 
+/** Функция сравнивает две даты без учета времени
+*/
+function checkEqualsDateWithoutTime(date1, date2) {
+    return ((date1.getYear() == date2.getYear()) &&
+            (date1.getMonth() == date2.getMonth()) &&
+            (date1.getDate() == date2.getDate()));
+} 
+
 (function(undefined) {
     
 
@@ -45,6 +53,9 @@ function Lecture(caption, lector, date) {
                 if (lecture) {
                     lecture = JSON.parse(lecture);
                     lecture.date = new Date(lecture.date);
+                    if (!isValidDate(lecture.date)) {
+                        lecture.date = new Date();
+                    }
                     
                     jQuery.proxy(_addLectureToGroupedList, this)(lecture);
                     
@@ -83,7 +94,7 @@ function Lecture(caption, lector, date) {
     * @this {LecturesShedule}
     * @returns {Array} Лекции, сгруппированные по дням
     */
-    LecturesShedule.prototype.getLecturesByInterval = function (year, month, day) {
+    LecturesShedule.prototype.getLecturesByDate = function (year, month, day) {
         var result = new Array();
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
@@ -128,6 +139,40 @@ function Lecture(caption, lector, date) {
         return result;
     }
     
+    
+    /**
+    * Возвращает список лекций начиная с dateStart до dateEnd
+    * @param {Date} dateStart задает начало интервала лекций (может отсутствовать)
+    * @param {Date} dateEnd задает конец интервала лекций (может отсутствовать)
+    * @param {Number} day задает дневной интервал лекций (может отсутствовать)
+    * @this {LecturesShedule}
+    * @returns {Array} Лекции, сгруппированные по дням
+    */
+    LecturesShedule.prototype.getLecturesByInterval = function (dateStart, dateEnd) {
+        var result = new Array();
+        
+        dateStart.setHours(0, 0, 0, 0);
+        dateEnd.setHours(23, 59, 59, 999);
+        
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            if (dateStart) {
+                if (dateStart > this.lecsGrpByDay[i].date) {
+                    continue;
+                }
+            }
+            
+            if (dateEnd) {
+                if (dateEnd < this.lecsGrpByDay[i].date) {
+                    continue;
+                }
+            }
+            
+            result.push(this.lecsGrpByDay[i]);
+        }
+        
+        return result;
+    }
+    
     /**
     * Возвращает список лекций за определенный день
     * @param {Date} День
@@ -135,7 +180,7 @@ function Lecture(caption, lector, date) {
     * @returns {Array} Лекции
     */
     LecturesShedule.prototype.getLecturesByDay = function (date) {
-        var lectionsByDay = this.getLecturesByInterval(date.getYear()+1900, date.getMonth(), date.getDate());
+        var lectionsByDay = this.getLecturesByDate(date.getYear()+1900, date.getMonth(), date.getDate());
         
         if (lectionsByDay.length == 1) {
             return lectionsByDay[0].lectures;
@@ -154,10 +199,7 @@ function Lecture(caption, lector, date) {
         var flagAdded = false;
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
-            if ((lecture.date.getYear() == this.lecsGrpByDay[i].date.getYear()) &&
-                (lecture.date.getMonth() == this.lecsGrpByDay[i].date.getMonth()) &&
-                (lecture.date.getDate() == this.lecsGrpByDay[i].date.getDate()))
-            {
+            if (checkEqualsDateWithoutTime(lecture.date, this.lecsGrpByDay[i].date)) {
                 for (var j=0; j < this.lecsGrpByDay[i].lectures; j++) {
                     if (lecture.date < this.lecsGrpByDay[i].lectures[j]) {
                         this.lecsGrpByDay[i].lectures.splice(j, 0, lecture);
@@ -372,4 +414,20 @@ function dateToMonthAndYearString(date) {
             break;
     }
     return result + ' ' + (date.getYear() + 1900);
+}
+
+/** По заданной дате возвращает строку с временем в формате hh:mm*
+ *  @param {Date} date дата  
+**/
+function dateToTimeString(date) {
+    var hour = date.getHours().toString();
+    var min = date.getMinutes().toString();
+    
+    return ((hour.length == 1) ? '0'+ hour : hour) + ':' + ((min.length == 1) ? '0'+ min : min); 
+}
+
+function isValidDate(d) {
+  if ( Object.prototype.toString.call(d) !== "[object Date]" )
+    return false;
+  return !isNaN(d.getTime());
 }

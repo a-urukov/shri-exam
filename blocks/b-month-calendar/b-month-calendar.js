@@ -51,14 +51,30 @@ BEM.DOM.decl('b-month-calendar', {
     onChangeMonth: function (date) {
         var dateArray = this.initCalendarMonth(new Date(date));
         var bemjson = new Array();
+        var lecturesByDay = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1])
         
-        for (var i=0; i < dateArray.length; i++) {
+        var j = 0;
+        for (var i = 0; i < dateArray.length; i++) {
+            var rangeLections = '';
+           
+            if (j < lecturesByDay.length) {
+                if (checkEqualsDateWithoutTime(dateArray[i], lecturesByDay[j].date)) {
+                    rangeLections =  dateToTimeString(lecturesByDay[j].lectures[0].date) + '—' 
+                                     + dateToTimeString(lecturesByDay[j].lectures[lecturesByDay[j].lectures.length-1].date);
+                    j++;
+                }
+            }
+            
             bemjson.push( {
                 block: 'b-day-in-calendar',
                 content: [
                     {
                         elem: 'day-num',
                         content: dateArray[i].getDate()
+                    },
+                    {
+                        elem: 'rangeLectionsTime',
+                        content: rangeLections
                     }
                 ],
                 js: { date: dateArray[i] }

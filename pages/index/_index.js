@@ -3192,7 +3192,9 @@ function Lecture(caption, lector, date) {
     * @this {LecturesShedule}
     */
     function LecturesShedule() {
-        this.lectures = new Object();
+        // отсортированный массив лекций сгрупированный по дням
+        this.lecsGrpByDay = new Array();
+        // id следующей добавленной лекции
         this.nextId = 1;
         
         // в списке лекций в LocalStorage храним только id, чтобы минимизировать чтение/запись в хранилище
@@ -3200,7 +3202,7 @@ function Lecture(caption, lector, date) {
         
         if (!(storageLecturesIdList = localStorage['lecturesIdList'])) {
             this.lecturesIdList = new Array();
-            localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);   
+            localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         }
         else {
             this.lecturesIdList = JSON.parse(storageLecturesIdList);
@@ -3211,7 +3213,8 @@ function Lecture(caption, lector, date) {
                 if (lecture) {
                     lecture = JSON.parse(lecture);
                     lecture.date = new Date(lecture.date);
-                    this.lectures[this.lecturesIdList[i]] = lecture;                
+                    
+                    jQuery.proxy(_addLectureToGroupedList, this)(lecture);
                     
                     if (this.nextId <= lecture.id) {
                         this.nextId = lecture.id + 1;
@@ -3222,104 +3225,156 @@ function Lecture(caption, lector, date) {
     }
     
     /**
-    * Возвращает список лекций заданного дня
-    * @param {Date} data дата проведения лекций
+    * Возвращает лекцию с заданным id 
+    * @param {Number} id лекции
     * @this {LecturesShedule}
     * @returns {Array} Лекции
     */
-    LecturesShedule.prototype.getLecturesByDate = function (date) {
-        var result = new Array();
+    LecturesShedule.prototype.getLectureById = function (id) {
         
-        for (var id in this.lectures) {
-            if ((this.lectures[id].date.getYear() == date.getYear()) &&
-                (this.lectures[id].date.getMonth() == date.getMonth()) &&
-                (this.lectures[id].date.getDate() == date.getDate()))
-            {
-                result.push(this.lectures[id]);
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
+                if (this.lecsGrpByDay[i].lectures[j] == id) {
+                    return this.lecsGrpByDay[i].lectures[j];
+                }
             }
         }
         
-        return result;
+        return null;
     }
     
-       /**
-    * Возвращает список лекций за данный месяц сгрупированный по дням и отсортированный
-    * @param {Date} data дата проведения лекций
+    /**
+    * Возвращает список лекций по заданному интервалу день/месяц/год
+    * @param {Number} year задает годовой интервал лекций (может отсутствовать)
+    * @param {Number} month задает месячный интервал лекций (может отсутствовать)
+    * @param {Number} day задает дневной интервал лекций (может отсутствовать)
     * @this {LecturesShedule}
-    * @returns {Array} Лекции
+    * @returns {Array} Лекции, сгруппированные по дням
     */
-    LecturesShedule.prototype.getAllLecturesGroupedByDay = function (year, month) {
+    LecturesShedule.prototype.getLecturesByInterval = function (year, month, day) {
         var result = new Array();
         
-        for (var id in this.lectures) {
-            
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
             if (year) {
-                if (this.lectures[id].date.getYear() != year) {
-                    continue;
+                var y = this.lecsGrpByDay[i].date.getYear() + 1900;
+                
+                if (y > year) {
+                    break;
                 }
-            }
-            if (month) {
-                if (this.lectures[id].date.getMonth() != month) {
-                    continue;
-                }
-            }
-            
-            var flagAdded = false;
-            var l = result.length;
-            
-            for (var i=0; i < l; i++) {
-                if ((this.lectures[id].date.getYear() == result[i].date.getYear()) &&
-                    (this.lectures[id].date.getMonth() == result[i].date.getMonth()) &&
-                    (this.lectures[id].date.getDate() == result[i].date.getDate()))
-                {
-                    for (var j=0; j < result[i].lectures; j++) {
-                        if (this.lectures[id].date < result[i].lectures[j]) {
-                            result[i].lectures.splice(j, 0, [ this.lectures[id] ]);
-                            flagAdded = true;
+                else if (y == year) {
+                    if (month) {
+                        var m = this.lecsGrpByDay[i].date.getMonth();
+                        
+                        if (m > month) {
                             break;
                         }
+                        else if (m == month) {
+                            if (day) {
+                                var d = this.lecsGrpByDay[i].date.getDate();
+                                
+                                if (d > day) {
+                                    break;
+                                }
+                                else if (d != day) {
+                                    continue;
+                                }
+                            }
+                        }
+                        else {
+                            continue;
+                        }
                     }
-                    if (!flagAdded) {
-                        result[i].lectures.push(this.lectures[id]);
-                        flagAdded = true;
-                    }
-                    
-                    break;
                 }
-                else if (this.lectures[id].date < result[i].date) {
-                    result.splice(i, 0, { date: this.lectures[id].date, lectures: [ this.lectures[id] ] });
-                    flagAdded = true;
-                    
-                    break;
+                else {
+                    continue;
                 }
             }
             
-            if (!flagAdded) {
-                    result.push({ date: this.lectures[id].date, lectures: [ this.lectures[id] ] });
-            }
+            result.push(this.lecsGrpByDay[i])
         }
         
         return result;
     }
     
     /**
-    * Добавить лекцию в расписание
+    * Возвращает список лекций за определенный день
+    * @param {Date} День
+    * @this {LecturesShedule}
+    * @returns {Array} Лекции
+    */
+    LecturesShedule.prototype.getLecturesByDay = function (date) {
+        var lectionsByDay = this.getLecturesByInterval(date.getYear()+1900, date.getMonth(), date.getDate());
+        
+        if (lectionsByDay.length == 1) {
+            return lectionsByDay[0].lectures;
+        } 
+        return [];
+    }
+    
+    /**
+    * private метод добавления уже существующей в расписании лекции в группированный по дате масив
+    * вызывается через proxy
+    * @this {LecturesShedule}
+    * @param {Lecture} лекция
+    * @returns {LecturesShedule}
+    */
+    function _addLectureToGroupedList (lecture) {
+        var flagAdded = false;
+        
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            if ((lecture.date.getYear() == this.lecsGrpByDay[i].date.getYear()) &&
+                (lecture.date.getMonth() == this.lecsGrpByDay[i].date.getMonth()) &&
+                (lecture.date.getDate() == this.lecsGrpByDay[i].date.getDate()))
+            {
+                for (var j=0; j < this.lecsGrpByDay[i].lectures; j++) {
+                    if (lecture.date < this.lecsGrpByDay[i].lectures[j]) {
+                        this.lecsGrpByDay[i].lectures.splice(j, 0, lecture);
+                        flagAdded = true;
+                        
+                        break;
+                    }
+                }
+                if (!flagAdded) {
+                    this.lecsGrpByDay[i].lectures.push(lecture);
+                    flagAdded = true;
+                }
+                    
+                break;
+            }
+            else if (lecture.date < this.lecsGrpByDay[i].date) {
+                this.lecsGrpByDay.splice(i, 0, { date: lecture.date, lectures: [ lecture ] });
+                flagAdded = true;
+               
+                break;
+            }
+        }
+            
+            if (!flagAdded) {
+                    this.lecsGrpByDay.push({ date: lecture.date, lectures: [ lecture ] });
+            }
+        
+        return this;
+    }
+    
+    /**
+    * Добавить новую лекцию в расписание
     * @this {LecturesShedule}
     * @param {String} caption название лекции 
     * @param {String} lector ФИО лектора
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.addLecture = function (caption, lector, date) {
+    LecturesShedule.prototype.addNewLecture = function (caption, lector, date) {
         var lecture = new Lecture(caption, lector, date);
         
         lecture.id = this.nextId++;
-        this.lectures[lecture.id] = lecture;    
         localStorage['l' + lecture.id] = JSON.stringify(lecture);
         
-        // обновляем глобальный список лекций
+        // обновляем список id's лекций
         this.lecturesIdList.push(lecture.id);
         localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
+        
+        jQuery.proxy(_addLectureToGroupedList, this)(lecture);
         
         return lecture;
     }
@@ -3334,10 +3389,16 @@ function Lecture(caption, lector, date) {
     * @returns {Lecture}
     */
     LecturesShedule.prototype.editLecture = function (id, caption, lector, date) {
-        if (this.lectures.hasOwnProperty(id)) {
-            this.lectures[id] = new Lecture(caption, lector, date);
-            localStorage['l' + id] = JSON.stringify(this.lectures[id]);
-            return this.lectures[id];
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
+                if (this.lecsGrpByDay[i].lectures[j] == id) {
+                    var l = new Lecture(caption, lector, date);
+                    
+                    this.lecsGrpByDay[i].lectures[j] = l;
+                    localStorage['l' + id] = JSON.stringify(l);
+                    return l; 
+                }
+            }
         }
     
         return null;
@@ -3350,15 +3411,28 @@ function Lecture(caption, lector, date) {
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.removeLecture = function (id) {
-        if (this.lectures.hasOwnProperty(id)) {
-            delete this.lectures[id];
-            
-            for (var i = 0; i < this.lecturesIdList.length; i++) {
-                if (this.lecturesIdList[i] == id) {
-                    this.lecturesIdList = this.lecturesIdList.slice(0, i).concat(this.lecturesIdList.slice(i + 1));
-                    localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
+                if (this.lecsGrpByDay[i].lectures[j] == id) {
                     
-                    break;
+                    // удаляем элемент из списка id's лекций
+                    for (var k = 0; k < this.lecturesIdList.length; k++) {
+                         if (this.lecturesIdList[k] == id) {
+                            this.lecturesIdList.splice(k, 1);
+                            localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
+                            
+                            break;
+                         }
+                    }
+                    
+                    if (this.lecsGrpByDay[i].lectures.length == 1) {
+                        this.lecsGrpByDay[i].splice(i, 1);
+                    } 
+                    else {
+                        this.lecsGrpByDay[i].lectures[j].splice(j, 1);
+                    }
+                    
+                    return this;
                 }
             }
         }
@@ -3372,7 +3446,7 @@ function Lecture(caption, lector, date) {
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.clearShedule = function (str) {
-        this.lectures = new Object();
+        this.lecsGrpByDay = new Array();
         this.lecturesIdList = new Array();
         localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         this.nextId = 1;
@@ -3388,9 +3462,11 @@ function Lecture(caption, lector, date) {
     LecturesShedule.prototype.exportShedule = function () {
         var result = '';
         
-        for (var id in this.lectures) {
-            var l = this.lectures[id];
-            result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ']';
+        for (var i=0; i < this.lecsGrpByDay.length; i++) {
+            for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
+                var l = this.lecsGrpByDay[i].lectures[j];
+                result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ']';
+            }
         }
     
         return result;
@@ -3837,7 +3913,7 @@ BEM.DOM.decl('b-day-sheduler', {
     
     onChangeActiveDay : function (date) {
         this.activeDay = new Date(date);
-        var lectures = lecturesShedule.getLecturesByDate(date);
+        var lectures = lecturesShedule.getLecturesByDay(date);
         var bemjson = new Array();
                  
         for (var i=0; i < lectures.length; i++) {

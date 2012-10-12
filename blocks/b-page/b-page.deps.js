@@ -14,7 +14,7 @@
         },
         {
             block: 'b-dialog-content', 
-            mods: { type: 'add-lecture' }
+            mods: { type: 'add-edit-lecture' }
         }
     ]
 })

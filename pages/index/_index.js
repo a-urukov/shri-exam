@@ -3175,12 +3175,16 @@ $(function() {
 * @param {String} caption название лекции 
 * @param {String} lector ФИО лектора
 * @param {Date} date дата проведения лекции
+* @param {Number} duration длительность лекции в минутах
+* @param {String} url ссылка на презентацию
 * @this {Lecture}
 */
-function Lecture(caption, lector, date) {
+function Lecture(caption, lector, date, duration, url) {
     this.caption = caption;
     this.lector = lector;
     this.date = date;
+    this.duration = duration;
+    this.url = url;
 }
 
 /** Функция сравнивает две даты без учета времени
@@ -3193,9 +3197,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
 
 (function(undefined) {
     
-
-    
-    /**
+        /**
     * Расписание лекций (конструктор)
     * @constructor
     * @this {LecturesShedule}
@@ -3407,8 +3409,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.addNewLecture = function (caption, lector, date) {
-        var lecture = new Lecture(caption, lector, date);
+    LecturesShedule.prototype.addNewLecture = function (caption, lector, date, duration, url) {
+        var lecture = new Lecture(caption, lector, date, duration, url);
         
         lecture.id = this.nextId++;
         localStorage['l' + lecture.id] = JSON.stringify(lecture);
@@ -3431,7 +3433,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.editLecture = function (id, caption, lector, date) {
+    LecturesShedule.prototype.editLecture = function (id, caption, lector, date, duration, url) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
                 if (this.lecsGrpByDay[i].lectures[j] == id) {
@@ -3606,23 +3608,21 @@ function isValidDate(d) {
 
 (function(undefined) {
 
-BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-lecture'}, {
+BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lecture'}, {
 
     onSetMod : {
 
         'js' : function() {
-            /* ... */
+            this.elem('input-time-start').timepicker();
+            if (this.params.lecture) {
+                this.elem('input-caption').val(this.params.lecture);
+            }
         }
 
     }
 
-}, {
-
-    live : function() {
-        /* ... */
-    }
-
 });
+
 
 })();
 ;
@@ -3766,6 +3766,36 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-edit-lecture' }});
+        
+        if (!this.daySheduler) {
+            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        }
+        
+        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lecture: 'test' }, mods: { type: 'add-edit-lecture' }});
+        
+        if (!this.daySheduler) {
+            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        }
+        
+        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'remove-lecture' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
         var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-lecture' }});
         
         if (!this.daySheduler) {
@@ -3774,7 +3804,7 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
         
         var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback);
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
     }
 });
 
@@ -4010,7 +4040,10 @@ BEM.DOM.decl('b-day-sheduler', {
     getBemjsonForLecture : function(lecture) {
         return  {
                     block: 'b-lecture',
-                    caption: lecture.caption
+                    lecture:  { 
+                        caption: lecture.caption,
+                        lector: lecture.lector
+                    }
                 }
     },
     
@@ -4087,8 +4120,9 @@ BEM.DOM.decl('b-day-sheduler', {
 
 BEM.DOM.decl('b-dialog', {
     
-    show: function (content, callback) {
-        BEM.DOM.update(this.findBlockInside('b-dialog-box').elem('content'), content); 
+    show: function (content, callback, title) {
+        BEM.DOM.update(this.elem('content'), content);
+        BEM.DOM.update(this.elem('title'), title); 
         this.domElem.fadeIn(200);
         this.callback = callback;
     },

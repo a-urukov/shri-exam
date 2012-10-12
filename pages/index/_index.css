@@ -1,9 +1,9 @@
-/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-lecture.css begin */
+/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-edit-lecture.css begin */
 .b-dialog-content_type_add-lecture
 {
 }
 
-/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-lecture.css end */
+/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-edit-lecture.css end */
 
 /* ../../blocks/b-month-switcher/b-month-switcher.css begin */
 .b-month-switcher
@@ -91,7 +91,7 @@
     display: none;
 }
 
-.b-dialog-box
+.b-dialog__dialog-box
 {
     position: relative;
     width: 250px;

@@ -26,6 +26,36 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-edit-lecture' }});
+        
+        if (!this.daySheduler) {
+            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        }
+        
+        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lecture: 'test' }, mods: { type: 'add-edit-lecture' }});
+        
+        if (!this.daySheduler) {
+            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        }
+        
+        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'remove-lecture' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
         var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-lecture' }});
         
         if (!this.daySheduler) {
@@ -34,7 +64,7 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
         
         var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback);
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
     }
 });
 

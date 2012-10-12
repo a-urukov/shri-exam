@@ -6,12 +6,16 @@
 * @param {String} caption название лекции 
 * @param {String} lector ФИО лектора
 * @param {Date} date дата проведения лекции
+* @param {Number} duration длительность лекции в минутах
+* @param {String} url ссылка на презентацию
 * @this {Lecture}
 */
-function Lecture(caption, lector, date) {
+function Lecture(caption, lector, date, duration, url) {
     this.caption = caption;
     this.lector = lector;
     this.date = date;
+    this.duration = duration;
+    this.url = url;
 }
 
 /** Функция сравнивает две даты без учета времени
@@ -24,9 +28,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
 
 (function(undefined) {
     
-
-    
-    /**
+        /**
     * Расписание лекций (конструктор)
     * @constructor
     * @this {LecturesShedule}
@@ -238,8 +240,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.addNewLecture = function (caption, lector, date) {
-        var lecture = new Lecture(caption, lector, date);
+    LecturesShedule.prototype.addNewLecture = function (caption, lector, date, duration, url) {
+        var lecture = new Lecture(caption, lector, date, duration, url);
         
         lecture.id = this.nextId++;
         localStorage['l' + lecture.id] = JSON.stringify(lecture);
@@ -262,7 +264,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.editLecture = function (id, caption, lector, date) {
+    LecturesShedule.prototype.editLecture = function (id, caption, lector, date, duration, url) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
                 if (this.lecsGrpByDay[i].lectures[j] == id) {

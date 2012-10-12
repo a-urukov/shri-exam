@@ -8,7 +8,10 @@ BEM.DOM.decl('b-day-sheduler', {
     getBemjsonForLecture : function(lecture) {
         return  {
                     block: 'b-lecture',
-                    caption: lecture.caption
+                    lecture:  { 
+                        caption: lecture.caption,
+                        lector: lecture.lector
+                    }
                 }
     },
     

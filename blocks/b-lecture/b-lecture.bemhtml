@@ -1,3 +1,54 @@
+/* applyNext вовзвращал undefined пришлось написать свой аналог */
+
+block b-lecture, !this._lecture {
+    default: apply(this._lecture =  this.ctx.lecture ? this.ctx.lecture : true)
+}
+
 block b-lecture {
-    content: { return this.ctx.caption; }
+    content: [
+        { 
+            elem: 'caption'
+        },
+        { 
+            elem: 'lector'
+        },
+        {
+            elem: 'time',
+            content: [
+                {
+                    elem: 'time-start',
+                    tag: 'span',
+                    content: this._lecture.timeStart
+                },
+                {
+                    elem: 'time-end',
+                    tag: 'span',
+                    content: this._lecture.timeEnd
+                }
+            ]
+        },
+        {
+            block: 'b-link',
+            mods: { pseudo: 'yes', action: 'edit-lecture' },
+            content: 'Редактировать'
+        },
+        {
+            block: 'b-link',
+            mods: { pseudo: 'yes', action: 'remove-lecture' },
+            content: 'Удалить'
+        }
+        
+    ]
+}
+
+block b-lecture, elem caption {
+    content: {
+        return this._lecture.caption ? this._lecture.caption : '<название лекции не указано>';
+    }
+}
+
+block b-lecture, elem lector {
+    content: {
+        return this._lecture.lector ? this._lecture.lector : '<лектор не указан>';
+    }
 }

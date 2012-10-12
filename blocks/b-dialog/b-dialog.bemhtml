@@ -1,13 +1,12 @@
 block b-dialog {
     content: {
-        block: 'b-dialog-box',
+        elem: 'dialog-box',
         content: [
             {
                 elem: 'head',
                 content: [
                     {
-                        elem: 'title',
-                        content: 'Dialog'
+                        elem: 'title'
                     },
                     {
                         elem: 'cross'

@@ -9,7 +9,7 @@
     display: none;
 }
 
-.b-dialog-box
+.b-dialog__dialog-box
 {
     position: relative;
     width: 250px;

@@ -4,9 +4,17 @@
         title: 'Школа разработки интерфейсов — расписание занятий',
         head: [
             { elem: 'js', url: 'jquery.min.js' },
+            { elem: 'js', url: 'jquery-ui.js' },
+            { elem: 'js', url: 'timepicker.js' },
             { elem: 'js', url: '_index.bemhtml.js' },
+            { elem: 'js', url: '_index.js' },
             { elem: 'css', url: '_index.css' },
-            { elem: 'js', url: '_index.js' }
+            { elem: 'css', url: 'jquery-ui-timepicker.css' },
+            {
+                /* Через элемент css блока b-page не подключается */
+                tag: 'link',
+                attrs: { rel: 'stylesheet', href: 'jquery-ui.css' }
+            }
         ],
         content: [
             {

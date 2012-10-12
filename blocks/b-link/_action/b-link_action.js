@@ -26,7 +26,7 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-edit-lecture' }});
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: true, mods: { type: 'add-edit-lecture' }});
         
         if (!this.daySheduler) {
             this.daySheduler = this.findBlockOutside('b-day-sheduler');
@@ -41,15 +41,16 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lecture: 'test' }, mods: { type: 'add-edit-lecture' }});
         
-        if (!this.daySheduler) {
-            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        if (!this.lectionBlock) {
+            this.lectionBlock = this.findBlockOutside('b-lecture');
         }
+                
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lectureId: this.lectionBlock.params.lectureId }, mods: { type: 'add-edit-lecture' }});
         
-        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        var callback = jQuery.proxy(this.lectionBlock, "edit"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Редактирование лекции');
     }
 });
 

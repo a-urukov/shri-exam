@@ -33,6 +33,29 @@ BEM.DOM.decl('b-month-calendar', {
         return calendarMonth;
     },
     
+    updateDayBlock: function(date) {
+        var blocks = this.findBlocksInside('b-day-in-calendar');
+        
+        for (var i=0; i < blocks.length; i++) {
+            if (checkEqualsDateWithoutTime(date, blocks[i].params.date)) {
+                var bemjson = {
+                    block: 'b-day-in-calendar',
+                    day: {
+                        num: blocks[i].params.date.getDate(),
+                        interval: lecturesShedule.getLecturesIntervalForDay({  
+                                                                                date: blocks[i].params.date, 
+                                                                                lectures: lecturesShedule.getLecturesByDay(blocks[i].params.date)
+                                                                            })
+                    },
+                    js: { date: blocks[i].params.date }
+                };
+                
+                BEM.DOM.update(blocks[i].domElem, $(BEMHTML.apply(bemjson)).html());
+                return;
+            }
+        }
+    },
+    
     changeActiveDay : function(day) {
         if (!this.dayShedulerBlock) {
             this.dayShedulerBlock = this.findBlockOutside('b-page').findBlockInside('b-day-sheduler');
@@ -51,32 +74,15 @@ BEM.DOM.decl('b-month-calendar', {
     onChangeMonth: function (date) {
         var dateArray = this.initCalendarMonth(new Date(date));
         var bemjson = new Array();
-        var lecturesByDay = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1])
+        var intervalsForDays = lecturesShedule.getLecturesIntervalForPeriod(dateArray[0], dateArray[dateArray.length-1]);
         
-        var j = 0;
         for (var i = 0; i < dateArray.length; i++) {
-            var rangeLections = '';
-           
-            if (j < lecturesByDay.length) {
-                if (checkEqualsDateWithoutTime(dateArray[i], lecturesByDay[j].date)) {
-                    rangeLections =  dateToTimeString(lecturesByDay[j].lectures[0].date) + '—' 
-                                     + dateToTimeString(lecturesByDay[j].lectures[lecturesByDay[j].lectures.length-1].date);
-                    j++;
-                }
-            }
-            
             bemjson.push( {
                 block: 'b-day-in-calendar',
-                content: [
-                    {
-                        elem: 'day-num',
-                        content: dateArray[i].getDate()
-                    },
-                    {
-                        elem: 'rangeLectionsTime',
-                        content: rangeLections
-                    }
-                ],
+                day: {
+                    num: dateArray[i].getDate(),
+                    interval: intervalsForDays[i]
+                },
                 js: { date: dateArray[i] }
             });
         };

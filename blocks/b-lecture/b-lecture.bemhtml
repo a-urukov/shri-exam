@@ -13,19 +13,10 @@ block b-lecture {
             elem: 'lector'
         },
         {
-            elem: 'time',
-            content: [
-                {
-                    elem: 'time-start',
-                    tag: 'span',
-                    content: this._lecture.timeStart
-                },
-                {
-                    elem: 'time-end',
-                    tag: 'span',
-                    content: this._lecture.timeEnd
-                }
-            ]
+            elem: 'time'
+        },
+        { 
+            elem: 'presentation'
         },
         {
             block: 'b-link',
@@ -50,5 +41,18 @@ block b-lecture, elem caption {
 block b-lecture, elem lector {
     content: {
         return this._lecture.lector ? this._lecture.lector : '<лектор не указан>';
+    }
+}
+
+block b-lecture, elem time {
+    content: {
+        return (this._lecture.timeStart ? this._lecture.timeStart : '–') + '–' + (this._lecture.timeEnd ? this._lecture.timeEnd : '–')
+               + (this._lecture.duration ? ' (' + this._lecture.duration + ' мин.)' : '');
+    }
+}
+
+block b-lecture, elem presentation {
+    content: {
+        return this._lecture.presentation ? this._lecture.presentation : '–';
     }
 }

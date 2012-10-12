@@ -6,7 +6,7 @@ pages/*/*.js
 pages/*/*.html
 pages/*/*.css
 !pages/*/*.bemjson.js
-!pages/*/datepicker.js
+!pages/*/timepicker.js
 !pages/*/_index.bemhtml.js
 !pages/*/_index.js
 !pages/*/jquery.min.js
@@ -14,5 +14,5 @@ pages/*/*.css
 !pages/*/index.ru.html
 !pages/*/_index.css
 !pages/*/jquery-ui.css
-!pages/*/jquery-ui-timepicker.css
+!pages/*/timepicker.css
 !level.js

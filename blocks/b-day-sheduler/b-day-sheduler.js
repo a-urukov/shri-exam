@@ -10,8 +10,13 @@ BEM.DOM.decl('b-day-sheduler', {
                     block: 'b-lecture',
                     lecture:  { 
                         caption: lecture.caption,
-                        lector: lecture.lector
-                    }
+                        lector: lecture.lector,
+                        timeStart: dateToTimeString(lecture.date),
+                        timeEnd: dateToTimeString(getEndTime(lecture.date, lecture.duration)),
+                        duration: lecture.duration,
+                        presentation: lecture.presentation
+                    },
+                    js: { lectureId: lecture.id }
                 }
     },
     
@@ -33,20 +38,22 @@ BEM.DOM.decl('b-day-sheduler', {
     
     addLectureFormDialog : function (dialog) {
           
-        var form = dialog.findBlockInside('b-add-lecture-form');
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
         
         if (!form) {
             return;
         }
         
-        var rawParams = form.domElem.serializeArray();
+        var rawParams = form.serializeArray();
         var proceedParams = new Object();
         
         for (var i=0; i < rawParams.length; i++) {
             proceedParams[rawParams[i].name] = rawParams[i].value;
         }
-        
-        var newLecture = lecturesShedule.addNewLecture(proceedParams['caption'], 'testLecture', this.activeDay);
+                
+        var newLecture = lecturesShedule.addNewLecture(proceedParams['caption'], proceedParams['lector'], 
+                                dateAndTimeStringToFullDate(this.activeDay, proceedParams['time-start']), 
+                                proceedParams['duration'].slice(0,-5), proceedParams['presentation']);
         
         var lecturesBlock = this.findBlockInside('b-lectures-list');
         
@@ -61,6 +68,7 @@ BEM.DOM.decl('b-day-sheduler', {
             this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
         }
         
+        this.calendarBlock.updateDayBlock(this.activeDay);
     },
     
     onSetMod : {

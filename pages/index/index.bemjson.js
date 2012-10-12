@@ -9,7 +9,7 @@
             { elem: 'js', url: '_index.bemhtml.js' },
             { elem: 'js', url: '_index.js' },
             { elem: 'css', url: '_index.css' },
-            { elem: 'css', url: 'jquery-ui-timepicker.css' },
+            { elem: 'css', url: 'timepicker.css' },
             {
                 /* Через элемент css блока b-page не подключается */
                 tag: 'link',

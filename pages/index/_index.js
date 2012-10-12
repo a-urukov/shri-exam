@@ -3176,15 +3176,15 @@ $(function() {
 * @param {String} lector ФИО лектора
 * @param {Date} date дата проведения лекции
 * @param {Number} duration длительность лекции в минутах
-* @param {String} url ссылка на презентацию
+* @param {String} presentation ссылка на презентацию
 * @this {Lecture}
 */
-function Lecture(caption, lector, date, duration, url) {
+function Lecture(caption, lector, date, duration, presentation) {
     this.caption = caption;
     this.lector = lector;
     this.date = date;
-    this.duration = duration;
-    this.url = url;
+    this.duration = parseInt(duration);
+    this.presentation = presentation;
 }
 
 /** Функция сравнивает две даты без учета времени
@@ -3248,7 +3248,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
-                if (this.lecsGrpByDay[i].lectures[j] == id) {
+                if (this.lecsGrpByDay[i].lectures[j].id == id) {
                     return this.lecsGrpByDay[i].lectures[j];
                 }
             }
@@ -3314,16 +3314,19 @@ function checkEqualsDateWithoutTime(date1, date2) {
     /**
     * Возвращает список лекций начиная с dateStart до dateEnd
     * @param {Date} dateStart задает начало интервала лекций (может отсутствовать)
-    * @param {Date} dateEnd задает конец интервала лекций (может отсутствовать)
-    * @param {Number} day задает дневной интервал лекций (может отсутствовать)
+    * @param {Date} dateEnd задает конец интервала лекций (может отсутствовать)    *
     * @this {LecturesShedule}
     * @returns {Array} Лекции, сгруппированные по дням
     */
     LecturesShedule.prototype.getLecturesByInterval = function (dateStart, dateEnd) {
         var result = new Array();
         
-        dateStart.setHours(0, 0, 0, 0);
-        dateEnd.setHours(23, 59, 59, 999);
+        if (dateStart) {
+            dateStart.setHours(0, 0, 0, 0);
+        }
+        if (dateEnd) {
+            dateEnd.setHours(23, 59, 59, 999);
+        }
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             if (dateStart) {
@@ -3360,6 +3363,52 @@ function checkEqualsDateWithoutTime(date1, date2) {
     }
     
     /**
+    * Возвращает интервал лекций за определенный день
+    * @param {LectionsByDay} День с лекциями
+    * @this {LecturesShedule}
+    * @returns {String} Интервал
+    */
+    LecturesShedule.prototype.getLecturesIntervalForDay = function (lectionsByDay) {
+        
+        if (lectionsByDay) {
+            return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
+                        + dateToTimeString(getEndTime(lectionsByDay.lectures[lectionsByDay.lectures.length-1].date, lectionsByDay.lectures[lectionsByDay.lectures.length-1].duration));
+        }
+        
+        return '';
+    }
+        /**
+    * Возвращает интервал лекций для кажого дня периода
+    * @param {Date} dateStart задает начало интервала лекций (может отсутствовать)
+    * @param {Date} dateEnd задает конец интервала лекций (может отсутствовать)
+    * @this {LecturesShedule}
+    * @returns {String} Интервалs
+    */
+    LecturesShedule.prototype.getLecturesIntervalForPeriod = function (dateStart, dateEnd) {
+        var lectionsByDays = this.getLecturesByInterval(dateStart, dateEnd);
+        var result = new Array();
+        var dateCounter = new Date(dateStart);
+        var i = 0;
+        
+        while (dateCounter <= dateEnd) {
+            
+            if (lectionsByDays.length > i) {
+                if (checkEqualsDateWithoutTime(lectionsByDays[i].date, dateCounter)) {
+                    result.push(this.getLecturesIntervalForDay(lectionsByDays[i]));
+                    i++;
+                    dateCounter.setDate(dateCounter.getDate() + 1);
+                    
+                    continue;
+                }
+            }
+            
+            result.push('');
+            dateCounter.setDate(dateCounter.getDate() + 1);
+        }
+        
+        return result;
+    }
+    /**
     * private метод добавления уже существующей в расписании лекции в группированный по дате масив
     * вызывается через proxy
     * @this {LecturesShedule}
@@ -3371,8 +3420,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             if (checkEqualsDateWithoutTime(lecture.date, this.lecsGrpByDay[i].date)) {
-                for (var j=0; j < this.lecsGrpByDay[i].lectures; j++) {
-                    if (lecture.date < this.lecsGrpByDay[i].lectures[j]) {
+                for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
+                    if (lecture.date < this.lecsGrpByDay[i].lectures[j].date) {
                         this.lecsGrpByDay[i].lectures.splice(j, 0, lecture);
                         flagAdded = true;
                         
@@ -3409,8 +3458,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.addNewLecture = function (caption, lector, date, duration, url) {
-        var lecture = new Lecture(caption, lector, date, duration, url);
+    LecturesShedule.prototype.addNewLecture = function (caption, lector, date, duration, presentation) {
+        var lecture = new Lecture(caption, lector, date, duration, presentation);
         
         lecture.id = this.nextId++;
         localStorage['l' + lecture.id] = JSON.stringify(lecture);
@@ -3433,11 +3482,12 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @param {Date} date дата проведения лекции
     * @returns {Lecture}
     */
-    LecturesShedule.prototype.editLecture = function (id, caption, lector, date, duration, url) {
+    LecturesShedule.prototype.editLecture = function (id, caption, lector, date, duration, presentation) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
-                if (this.lecsGrpByDay[i].lectures[j] == id) {
-                    var l = new Lecture(caption, lector, date);
+                if (this.lecsGrpByDay[i].lectures[j].id == id) {
+                    var l = new Lecture(caption, lector, date, duration, presentation);
+                    l.id = id;
                     
                     this.lecsGrpByDay[i].lectures[j] = l;
                     localStorage['l' + id] = JSON.stringify(l);
@@ -3458,7 +3508,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     LecturesShedule.prototype.removeLecture = function (id) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
-                if (this.lecsGrpByDay[i].lectures[j] == id) {
+                if (this.lecsGrpByDay[i].lectures[j].id == id) {
                     
                     // удаляем элемент из списка id's лекций
                     for (var k = 0; k < this.lecturesIdList.length; k++) {
@@ -3471,10 +3521,10 @@ function checkEqualsDateWithoutTime(date1, date2) {
                     }
                     
                     if (this.lecsGrpByDay[i].lectures.length == 1) {
-                        this.lecsGrpByDay[i].splice(i, 1);
+                        this.lecsGrpByDay.splice(i, 1);
                     } 
                     else {
-                        this.lecsGrpByDay[i].lectures[j].splice(j, 1);
+                        this.lecsGrpByDay[i].lectures.splice(j, 1);
                     }
                     
                     return this;
@@ -3594,7 +3644,27 @@ function dateToTimeString(date) {
     var hour = date.getHours().toString();
     var min = date.getMinutes().toString();
     
-    return ((hour.length == 1) ? '0'+ hour : hour) + ':' + ((min.length == 1) ? '0'+ min : min); 
+    return ((hour.length == 1) ? '0'+ hour : hour) + ':' + ((min.length == 1) ? '0'+ min : min);
+}
+
+/** По заданной дате и строке с временем в формате hh:mm* возвращает дату и время 
+ *  @param {Date} date дата  
+ *  @param {String} time время в строковом формате 
+**/
+function dateAndTimeStringToFullDate(date, time) {
+    var timeArray = time.split(':');
+    
+    return new Date(date.getYear()+1900,  date.getMonth(), date.getDate(), parseInt(timeArray[0]), parseInt(timeArray[1]));
+}
+
+/** По времени начала и длительности возвращает время окончания 
+ *  @param {Date} timeStart дата  
+ *  @param {Number} duration длительность в минутах
+**/
+function getEndTime (timeStart, duration) {
+    var result = new Date(timeStart);    
+    result.setMinutes(result.getMinutes() + duration);
+    return result;
 }
 
 function isValidDate(d) {
@@ -3614,13 +3684,44 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lec
 
         'js' : function() {
             this.elem('input-time-start').timepicker();
-            if (this.params.lecture) {
-                this.elem('input-caption').val(this.params.lecture);
+            
+            var that = this;
+            var sliderParam = {
+                value: 60,
+                min: 15,
+                max: 180,
+                step: 5,
+                slide: function( event, ui ) {
+                        that.elem('input-duration').val(ui.value + ' мин.' );
+                }
             }
+            
+            this.elem('input-time-start').val('12:00');
+            
+            if (this.params.lectureId) {
+                var l = lecturesShedule.getLectureById(this.params.lectureId);
+                
+                if (l.caption) {
+                    this.elem('input-caption').val(l.caption);
+                }
+                if (l.lector) {
+                    this.elem('input-lector').val(l.lector);
+                }
+                if (l.date) {
+                    this.elem('input-time-start').val(dateToTimeString(l.date));
+                }
+                if (l.duration) {
+                    sliderParam.value = l.duration;
+                }
+                if (l.presentation) {
+                    this.elem('input-presentation').val(l.presentation);
+                }
+            }
+            
+            this.elem('slider-duration').slider(sliderParam);
+            this.elem('input-duration').val(sliderParam.value + ' мин.');
         }
-
     }
-
 });
 
 
@@ -3766,7 +3867,7 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-edit-lecture' }});
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: true, mods: { type: 'add-edit-lecture' }});
         
         if (!this.daySheduler) {
             this.daySheduler = this.findBlockOutside('b-day-sheduler');
@@ -3781,15 +3882,16 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lecture: 'test' }, mods: { type: 'add-edit-lecture' }});
         
-        if (!this.daySheduler) {
-            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        if (!this.lectionBlock) {
+            this.lectionBlock = this.findBlockOutside('b-lecture');
         }
+                
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { lectureId: this.lectionBlock.params.lectureId }, mods: { type: 'add-edit-lecture' }});
         
-        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        var callback = jQuery.proxy(this.lectionBlock, "edit"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Редактирование лекции');
     }
 });
 
@@ -3903,6 +4005,29 @@ BEM.DOM.decl('b-month-calendar', {
         return calendarMonth;
     },
     
+    updateDayBlock: function(date) {
+        var blocks = this.findBlocksInside('b-day-in-calendar');
+        
+        for (var i=0; i < blocks.length; i++) {
+            if (checkEqualsDateWithoutTime(date, blocks[i].params.date)) {
+                var bemjson = {
+                    block: 'b-day-in-calendar',
+                    day: {
+                        num: blocks[i].params.date.getDate(),
+                        interval: lecturesShedule.getLecturesIntervalForDay({  
+                                                                                date: blocks[i].params.date, 
+                                                                                lectures: lecturesShedule.getLecturesByDay(blocks[i].params.date)
+                                                                            })
+                    },
+                    js: { date: blocks[i].params.date }
+                };
+                
+                BEM.DOM.update(blocks[i].domElem, $(BEMHTML.apply(bemjson)).html());
+                return;
+            }
+        }
+    },
+    
     changeActiveDay : function(day) {
         if (!this.dayShedulerBlock) {
             this.dayShedulerBlock = this.findBlockOutside('b-page').findBlockInside('b-day-sheduler');
@@ -3921,32 +4046,15 @@ BEM.DOM.decl('b-month-calendar', {
     onChangeMonth: function (date) {
         var dateArray = this.initCalendarMonth(new Date(date));
         var bemjson = new Array();
-        var lecturesByDay = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1])
+        var intervalsForDays = lecturesShedule.getLecturesIntervalForPeriod(dateArray[0], dateArray[dateArray.length-1]);
         
-        var j = 0;
         for (var i = 0; i < dateArray.length; i++) {
-            var rangeLections = '';
-           
-            if (j < lecturesByDay.length) {
-                if (checkEqualsDateWithoutTime(dateArray[i], lecturesByDay[j].date)) {
-                    rangeLections =  dateToTimeString(lecturesByDay[j].lectures[0].date) + '—' 
-                                     + dateToTimeString(lecturesByDay[j].lectures[lecturesByDay[j].lectures.length-1].date);
-                    j++;
-                }
-            }
-            
             bemjson.push( {
                 block: 'b-day-in-calendar',
-                content: [
-                    {
-                        elem: 'day-num',
-                        content: dateArray[i].getDate()
-                    },
-                    {
-                        elem: 'rangeLectionsTime',
-                        content: rangeLections
-                    }
-                ],
+                day: {
+                    num: dateArray[i].getDate(),
+                    interval: intervalsForDays[i]
+                },
                 js: { date: dateArray[i] }
             });
         };
@@ -3986,6 +4094,34 @@ BEM.DOM.decl('b-month-calendar', {
 (function(undefined) {
 
 BEM.DOM.decl('b-lecture', {
+    
+    edit : function(dialog) {
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
+        
+        if (!form) {
+            return;
+        }
+        
+        var rawParams = form.serializeArray();
+        var proceedParams = new Object();
+        
+        for (var i=0; i < rawParams.length; i++) {
+            proceedParams[rawParams[i].name] = rawParams[i].value;
+        }
+        
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
+        }
+        
+        var date = lecturesShedule.getLectureById(this.params.lectureId).date;
+        var l = lecturesShedule.editLecture(this.params.lectureId, proceedParams['caption'], proceedParams['lector'], 
+                           dateAndTimeStringToFullDate(date, proceedParams['time-start']), proceedParams['duration'].slice(0,-5), 
+                           proceedParams['presentation']);
+                                    
+        BEM.DOM.update(this.domElem, $(BEMHTML.apply(this.findBlockOutside('b-day-sheduler').getBemjsonForLecture(l))).html());
+        
+        this.calendarBlock.updateDayBlock(l.date);
+    },
 
     onSetMod : {
 
@@ -3993,12 +4129,6 @@ BEM.DOM.decl('b-lecture', {
             /* ... */
         }
 
-    }
-
-}, {
-
-    live : function() {
-        /* ... */
     }
 
 });
@@ -4042,8 +4172,13 @@ BEM.DOM.decl('b-day-sheduler', {
                     block: 'b-lecture',
                     lecture:  { 
                         caption: lecture.caption,
-                        lector: lecture.lector
-                    }
+                        lector: lecture.lector,
+                        timeStart: dateToTimeString(lecture.date),
+                        timeEnd: dateToTimeString(getEndTime(lecture.date, lecture.duration)),
+                        duration: lecture.duration,
+                        presentation: lecture.presentation
+                    },
+                    js: { lectureId: lecture.id }
                 }
     },
     
@@ -4065,20 +4200,22 @@ BEM.DOM.decl('b-day-sheduler', {
     
     addLectureFormDialog : function (dialog) {
           
-        var form = dialog.findBlockInside('b-add-lecture-form');
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
         
         if (!form) {
             return;
         }
         
-        var rawParams = form.domElem.serializeArray();
+        var rawParams = form.serializeArray();
         var proceedParams = new Object();
         
         for (var i=0; i < rawParams.length; i++) {
             proceedParams[rawParams[i].name] = rawParams[i].value;
         }
-        
-        var newLecture = lecturesShedule.addNewLecture(proceedParams['caption'], 'testLecture', this.activeDay);
+                
+        var newLecture = lecturesShedule.addNewLecture(proceedParams['caption'], proceedParams['lector'], 
+                                dateAndTimeStringToFullDate(this.activeDay, proceedParams['time-start']), 
+                                proceedParams['duration'].slice(0,-5), proceedParams['presentation']);
         
         var lecturesBlock = this.findBlockInside('b-lectures-list');
         
@@ -4093,6 +4230,7 @@ BEM.DOM.decl('b-day-sheduler', {
             this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
         }
         
+        this.calendarBlock.updateDayBlock(this.activeDay);
     },
     
     onSetMod : {

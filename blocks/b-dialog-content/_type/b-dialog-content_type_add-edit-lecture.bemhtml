@@ -19,17 +19,65 @@ block b-dialog-content, mod type add-edit-lecture  {
                 ]
             },
             {
+                elem: 'lector',
+                content: [
+                    {
+                        elem: 'label-lector',
+                        tag: 'label',
+                        content: 'ФИО лектора:'
+                    },
+                    {
+                        elem: 'input-lector',
+                        tag: 'input',
+                        attrs: { name: 'lector', type: 'text' }
+                    }
+                ]
+            },
+            {
                 elem: 'timeStart',
                 content: [
                     {
                         elem: 'label-time-start',
                         tag: 'label',
-                        content: 'Тема лекции:'
+                        content: 'Время начала лекции:'
                     },
                     {
                         elem: 'input-time-start',
                         tag: 'input',
                         attrs: { name: 'time-start', type: 'text' }
+                    }
+                ]
+            },
+            {
+                elem: 'duration',
+                content: [
+                    {
+                        elem: 'label-duration',
+                        tag: 'label',
+                        content: 'Длительность лекции (мин.):'
+                    },
+                    {
+                        elem: 'input-duration',
+                        tag: 'input',
+                        attrs: { name: 'duration', type: 'text' }
+                    },
+                    {
+                        elem: 'slider-duration'
+                    }
+                ]
+            },
+            {
+                elem: 'presentation',
+                content: [
+                    {
+                        elem: 'label-presentation',
+                        tag: 'label',
+                        content: 'Ссылка на презентацию:'
+                    },
+                    {
+                        elem: 'input-presentation',
+                        tag: 'input',
+                        attrs: { name: 'presentation', type: 'text' }
                     }
                 ]
             }

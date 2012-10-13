@@ -1,0 +1,18 @@
+block b-month-switcher {
+    content: [
+        {
+            block: 'b-link',
+            mods: { pseudo: 'yes', action: 'prev-month' },
+            content: '←'
+        },
+        {
+            elem: 'current-month',
+            tag: 'span'
+        },
+        {
+            block: 'b-link',
+            mods: { pseudo: 'yes', action: 'next-month' },
+            content: '→'
+        }
+    ]
+}

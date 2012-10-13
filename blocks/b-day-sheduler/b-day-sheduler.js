@@ -23,7 +23,7 @@ BEM.DOM.decl('b-day-sheduler', {
     onChangeActiveDay : function (date) {
         this.activeDay = new Date(date);
         var lectures = lecturesShedule.getLecturesByDay(date);
-        var bemjson = new Array();
+        var bemjson = [];
                  
         for (var i=0; i < lectures.length; i++) {
             bemjson.push(this.getBemjsonForLecture(lectures[i]));
@@ -65,7 +65,7 @@ BEM.DOM.decl('b-day-sheduler', {
         }
         
         if (!this.calendarBlock) {
-            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
         }
         
         this.calendarBlock.updateDayBlock(this.activeDay);

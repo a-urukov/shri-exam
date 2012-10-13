@@ -19,10 +19,6 @@ BEM.DOM.decl('b-lecture', {
             proceedParams[rawParams[i].name] = rawParams[i].value;
         }
         
-        if (!this.calendarBlock) {
-            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
-        }
-        
         var date = lecturesShedule.getLectureById(this.params.lectureId).date;
         var l = lecturesShedule.editLecture(this.params.lectureId, proceedParams['caption'], proceedParams['lector'], 
                            dateAndTimeStringToFullDate(date, proceedParams['time-start']), proceedParams['duration'].slice(0,-5), 
@@ -30,6 +26,10 @@ BEM.DOM.decl('b-lecture', {
                                     
         BEM.DOM.update(this.domElem, $(BEMHTML.apply(this.findBlockOutside('b-day-sheduler').getBemjsonForLecture(l))).html());
         
+        // обновляем интервал в ячейке дня на календаре
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
+        }
         this.calendarBlock.updateDayBlock(l.date);
     },
 

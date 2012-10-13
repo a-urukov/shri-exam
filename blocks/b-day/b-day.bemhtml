@@ -1,0 +1,18 @@
+/* applyNext вовзвращал undefined пришлось написать свой аналог */
+
+block b-day, !this._day {
+    default: apply(this._day =  this.ctx.day ? this.ctx.day : true)
+}
+
+block b-day {
+    content: [
+        {
+            elem: 'day-num',
+            content: this._day.num
+        },
+        {
+            elem: 'interval',
+            content: this._day.interval
+        }
+    ]
+}

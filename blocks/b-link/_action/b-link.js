@@ -23,20 +23,6 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
     }
 });
 
-BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, {
-    _onClick : function(e) {
-        this.__base.apply(this, arguments);
-        
-        if (!this.viewModeSwitcher) {
-            this.viewModeSwitcher = this.findBlockOutside('b-view-mode-switcher');
-        }
-        
-        this.setMod('active', 'yes');
-        this.viewModeSwitcher.setViewMode(this.getMod('view'));
-    }
-});
-
-
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);

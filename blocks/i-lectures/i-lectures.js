@@ -35,7 +35,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     function LecturesShedule() {
         // отсортированный массив лекций сгрупированный по дням
-        this.lecsGrpByDay = new Array();
+        this.lecsGrpByDay = [];
         // id следующей добавленной лекции
         this.nextId = 1;
         
@@ -43,7 +43,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
         var storageLecturesIdList;
         
         if (!(storageLecturesIdList = localStorage['lecturesIdList'])) {
-            this.lecturesIdList = new Array();
+            this.lecturesIdList = [];
             localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         }
         else {
@@ -97,7 +97,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {Array} Лекции, сгруппированные по дням
     */
     LecturesShedule.prototype.getLecturesByDate = function (year, month, day) {
-        var result = new Array();
+        var result = [];
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             if (year) {
@@ -150,7 +150,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {Array} Лекции, сгруппированные по дням
     */
     LecturesShedule.prototype.getLecturesByInterval = function (dateStart, dateEnd) {
-        var result = new Array();
+        var result = [];
         
         if (dateStart) {
             dateStart.setHours(0, 0, 0, 0);
@@ -200,7 +200,6 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {String} Интервал
     */
     LecturesShedule.prototype.getLecturesIntervalForDay = function (lectionsByDay) {
-        
         if (lectionsByDay) {
             return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
                         + dateToTimeString(getEndTime(lectionsByDay.lectures[lectionsByDay.lectures.length-1].date, lectionsByDay.lectures[lectionsByDay.lectures.length-1].duration));
@@ -217,7 +216,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     LecturesShedule.prototype.getLecturesIntervalForPeriod = function (dateStart, dateEnd) {
         var lectionsByDays = this.getLecturesByInterval(dateStart, dateEnd);
-        var result = new Array();
+        var result = [];
         var dateCounter = new Date(dateStart);
         var i = 0;
         
@@ -372,8 +371,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.clearShedule = function (str) {
-        this.lecsGrpByDay = new Array();
-        this.lecturesIdList = new Array();
+        this.lecsGrpByDay = [];
+        this.lecturesIdList = [];
         localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         this.nextId = 1;
         
@@ -425,47 +424,9 @@ function checkEqualsDateWithoutTime(date1, date2) {
  *  @param {Date} date дата  
 **/
 function dateToMonthAndYearString(date) {
-    var result;
+    var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
     
-    switch (date.getMonth()) {
-        case 0:
-            result = 'Январь';
-            break;
-        case 1:
-            result = 'Февраль';
-            break;
-        case 2:
-            result = 'Март';
-            break;
-        case 3:
-            result = 'Апрель';
-            break;
-        case 4:
-            result = 'Май';
-            break;
-        case 5:
-            result = 'Июнь';
-            break;
-        case 6:
-            result = 'Июль';
-            break;
-        case 7:
-            result = 'Август';
-            break;
-        case 8:
-            result = 'Сентябрь';
-            break;
-        case 9:
-            result = 'Октябрь';
-            break;
-        case 10:
-            result = 'Ноябрь';
-            break;
-        case 11:
-            result = 'Декабрь';
-            break;
-    }
-    return result + ' ' + (date.getYear() + 1900);
+    return months[date.getMonth()] + ' ' + (date.getYear() + 1900);
 }
 
 /** По заданной дате возвращает строку с временем в формате hh:mm*

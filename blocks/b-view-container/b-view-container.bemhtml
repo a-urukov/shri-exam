@@ -1,0 +1,19 @@
+block b-view-container, mod view calendar-view {
+    content: [
+        {
+            block: 'b-calendar-view'
+        },
+        {
+            block: 'b-day-sheduler',
+            js: true
+        }
+    ]
+}
+
+block b-view-container, mod view list-view {
+    content: [
+        {
+            block: 'b-list-view'
+        }
+    ]
+}

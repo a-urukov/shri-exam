@@ -1,0 +1,14 @@
+block b-view-mode-switcher {
+    content: [
+        {
+            block: 'b-link',
+            content: 'Календарь',
+            mods: { pseudo: 'yes', action: 'change-view-mode', view: 'calendar-view', active: 'yes' }
+        },
+        {
+            block: 'b-link',
+            content: 'Список',
+            mods: { pseudo: 'yes', action: 'change-view-mode', view: 'list-view' }
+        }
+    ]
+}

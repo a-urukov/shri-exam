@@ -2,7 +2,7 @@ block b-lectures-list {
     tag: {
         if (this.ctx.content) {        
             if (this.ctx.content.length) {
-                return 'li';
+                return 'ul';
             }
         }
         return 'div';

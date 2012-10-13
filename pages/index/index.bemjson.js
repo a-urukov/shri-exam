@@ -26,31 +26,15 @@
                         content: 'Расписание занятий'
                     },
                     {
+                        block: 'b-view-mode-switcher',
+                        js: { view: 'calendar-view' }
+                    },
+                    {
                         block: 'b-month-switcher',
                         js: { curMonthValue: new Date() },
-                        content: [
-                            {
-                                block: 'b-link',
-                                mods: { pseudo: 'yes', action: 'prev-month' },
-                                content: '←'
-                            },
-                            {
-                                elem: 'current-month',
-                                tag: 'span'
-                            },
-                            {
-                                block: 'b-link',
-                                mods: { pseudo: 'yes', action: 'next-month' },
-                                content: '→'
-                            }
-                        ]
                     },
                     {
-                        block: 'b-month-calendar'
-                    },
-                    {
-                        block: 'b-day-sheduler',
-                        js: true
+                        block: 'b-lectures-content-wrapper',
                     },
                     {
                         block: 'b-dialog',

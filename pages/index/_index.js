@@ -3204,7 +3204,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     function LecturesShedule() {
         // отсортированный массив лекций сгрупированный по дням
-        this.lecsGrpByDay = new Array();
+        this.lecsGrpByDay = [];
         // id следующей добавленной лекции
         this.nextId = 1;
         
@@ -3212,7 +3212,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
         var storageLecturesIdList;
         
         if (!(storageLecturesIdList = localStorage['lecturesIdList'])) {
-            this.lecturesIdList = new Array();
+            this.lecturesIdList = [];
             localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         }
         else {
@@ -3266,7 +3266,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {Array} Лекции, сгруппированные по дням
     */
     LecturesShedule.prototype.getLecturesByDate = function (year, month, day) {
-        var result = new Array();
+        var result = [];
         
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             if (year) {
@@ -3319,7 +3319,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {Array} Лекции, сгруппированные по дням
     */
     LecturesShedule.prototype.getLecturesByInterval = function (dateStart, dateEnd) {
-        var result = new Array();
+        var result = [];
         
         if (dateStart) {
             dateStart.setHours(0, 0, 0, 0);
@@ -3369,7 +3369,6 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {String} Интервал
     */
     LecturesShedule.prototype.getLecturesIntervalForDay = function (lectionsByDay) {
-        
         if (lectionsByDay) {
             return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
                         + dateToTimeString(getEndTime(lectionsByDay.lectures[lectionsByDay.lectures.length-1].date, lectionsByDay.lectures[lectionsByDay.lectures.length-1].duration));
@@ -3386,7 +3385,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     LecturesShedule.prototype.getLecturesIntervalForPeriod = function (dateStart, dateEnd) {
         var lectionsByDays = this.getLecturesByInterval(dateStart, dateEnd);
-        var result = new Array();
+        var result = [];
         var dateCounter = new Date(dateStart);
         var i = 0;
         
@@ -3541,8 +3540,8 @@ function checkEqualsDateWithoutTime(date1, date2) {
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.clearShedule = function (str) {
-        this.lecsGrpByDay = new Array();
-        this.lecturesIdList = new Array();
+        this.lecsGrpByDay = [];
+        this.lecturesIdList = [];
         localStorage['lecturesIdList'] = JSON.stringify(this.lecturesIdList);
         this.nextId = 1;
         
@@ -3594,47 +3593,9 @@ function checkEqualsDateWithoutTime(date1, date2) {
  *  @param {Date} date дата  
 **/
 function dateToMonthAndYearString(date) {
-    var result;
+    var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
     
-    switch (date.getMonth()) {
-        case 0:
-            result = 'Январь';
-            break;
-        case 1:
-            result = 'Февраль';
-            break;
-        case 2:
-            result = 'Март';
-            break;
-        case 3:
-            result = 'Апрель';
-            break;
-        case 4:
-            result = 'Май';
-            break;
-        case 5:
-            result = 'Июнь';
-            break;
-        case 6:
-            result = 'Июль';
-            break;
-        case 7:
-            result = 'Август';
-            break;
-        case 8:
-            result = 'Сентябрь';
-            break;
-        case 9:
-            result = 'Октябрь';
-            break;
-        case 10:
-            result = 'Ноябрь';
-            break;
-        case 11:
-            result = 'Декабрь';
-            break;
-    }
-    return result + ' ' + (date.getYear() + 1900);
+    return months[date.getMonth()] + ' ' + (date.getYear() + 1900);
 }
 
 /** По заданной дате возвращает строку с временем в формате hh:mm*
@@ -3672,106 +3633,6 @@ function isValidDate(d) {
     return false;
   return !isNaN(d.getTime());
 }
-;
-/** @requires BEM */
-/** @requires BEM.DOM */
-
-(function(undefined) {
-
-BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lecture'}, {
-
-    onSetMod : {
-
-        'js' : function() {
-            this.elem('input-time-start').timepicker();
-            
-            var that = this;
-            var sliderParam = {
-                value: 60,
-                min: 15,
-                max: 180,
-                step: 5,
-                slide: function( event, ui ) {
-                        that.elem('input-duration').val(ui.value + ' мин.' );
-                }
-            }
-            
-            this.elem('input-time-start').val('12:00');
-            
-            if (this.params.lectureId) {
-                var l = lecturesShedule.getLectureById(this.params.lectureId);
-                
-                if (l.caption) {
-                    this.elem('input-caption').val(l.caption);
-                }
-                if (l.lector) {
-                    this.elem('input-lector').val(l.lector);
-                }
-                if (l.date) {
-                    this.elem('input-time-start').val(dateToTimeString(l.date));
-                }
-                if (l.duration) {
-                    sliderParam.value = l.duration;
-                }
-                if (l.presentation) {
-                    this.elem('input-presentation').val(l.presentation);
-                }
-            }
-            
-            this.elem('slider-duration').slider(sliderParam);
-            this.elem('input-duration').val(sliderParam.value + ' мин.');
-        }
-    }
-});
-
-
-})();
-;
-/** @requires BEM */
-/** @requires BEM.DOM */
-
-(function(undefined) {
-
-BEM.DOM.decl('b-month-switcher', {
-
-    nextMonth : function () {
-        this.params.curMonthValue.setMonth(this.params.curMonthValue.getMonth()+1);
-        this.onChangeMonth();
-    },
-    
-    prevMonth : function () {
-        var month = this.params.curMonthValue.getMonth();
-        
-        if (month) {
-            this.params.curMonthValue.setMonth(month-1);
-        }
-        else {
-            this.params.curMonthValue = new Date(this.params.curMonthValue.getYear()+1899, 11)
-        };
-        
-        this.onChangeMonth();
-    },
-    
-    onChangeMonth : function () {
-        BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
-        
-        if (!this.monthCalendar) {
-            this.monthCalendar = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
-        };
-                
-        this.monthCalendar.onChangeMonth(this.params.curMonthValue);
-    },
-
-    onSetMod : {
-
-        'js' : function() {
-            this.params.curMonthValue = new Date(this.params.curMonthValue);
-            this.onChangeMonth();
-        }
-    }
-});
-
-})();
 ;
 /**
  * leftClick event plugin
@@ -3864,6 +3725,20 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'prev-month' }, {
     }
 });
 
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        
+        if (!this.viewModeSwitcher) {
+            this.viewModeSwitcher = this.findBlockOutside('b-view-mode-switcher');
+        }
+        
+        this.setMod('active', 'yes');
+        this.viewModeSwitcher.setViewMode(this.getMod('view'));
+    }
+});
+
+
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
@@ -3937,36 +3812,52 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'dialog-cancel' }, {
 
 (function(undefined) {
 
-BEM.DOM.decl('b-day-in-calendar', {
+BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lecture'}, {
 
-    _onClick : function(e) {
-        this.activate();
-    },
-    
-    activate : function() {
-        if (!this.container) {
-            this.container = this.findBlockOutside('b-month-calendar');
-        }
-        this.container.changeActiveDay(this);
-    },
-    
     onSetMod : {
 
         'js' : function() {
-            this.params.date = new Date(this.params.date);
+            this.elem('input-time-start').timepicker();
+            
+            var that = this;
+            var sliderParam = {
+                value: 60,
+                min: 15,
+                max: 180,
+                step: 5,
+                slide: function( event, ui ) {
+                        that.elem('input-duration').val(ui.value + ' мин.' );
+                }
+            }
+            
+            this.elem('input-time-start').val('12:00');
+            
+            if (this.params.lectureId) {
+                var l = lecturesShedule.getLectureById(this.params.lectureId);
+                
+                if (l.caption) {
+                    this.elem('input-caption').val(l.caption);
+                }
+                if (l.lector) {
+                    this.elem('input-lector').val(l.lector);
+                }
+                if (l.date) {
+                    this.elem('input-time-start').val(dateToTimeString(l.date));
+                }
+                if (l.duration) {
+                    sliderParam.value = l.duration;
+                }
+                if (l.presentation) {
+                    this.elem('input-presentation').val(l.presentation);
+                }
+            }
+            
+            this.elem('slider-duration').slider(sliderParam);
+            this.elem('input-duration').val(sliderParam.value + ' мин.');
         }
     }
-},
-{
-    live : function() {
-        this.__base.apply(this, arguments);
+});
 
-        this.liveBindTo('click', function(e) {
-            this._onClick(e);
-        });
-    }
-
-})
 
 })();
 ;
@@ -3975,10 +3866,9 @@ BEM.DOM.decl('b-day-in-calendar', {
 
 (function(undefined) {
 
-BEM.DOM.decl('b-month-calendar', {
-
+BEM.DOM.decl('b-view-container', {
     // Возвращает массив Date, представляющий месяц (month, year) в каледаре
-    initCalendarMonth: function (date) {
+    getCalendarMonth: function (date) {
         date.setDate(1);
         var dayOfWeek = date.getDay(date);
         var month = date.getMonth();
@@ -3993,7 +3883,7 @@ BEM.DOM.decl('b-month-calendar', {
             }
         }
     
-        var calendarMonth = new Array();
+        var calendarMonth = [];
         var y = date.getYear();
         
         while (((date.getMonth() <= month) && (y <= year) || (y < year)) || (date.getDay() != 1)) {
@@ -4005,13 +3895,36 @@ BEM.DOM.decl('b-month-calendar', {
         return calendarMonth;
     },
     
+    onSetMod : {
+        
+        'js' : function() {
+            var monthSwitcherBlock = this.findBlockOutside('b-page').findBlockInside('b-month-switcher');
+            var viewBlock = (this.getMod('view') == 'calendar-view') ? this.findBlockInside('b-calendar-view') : this.findBlockInside('b-list-view');
+            
+            monthSwitcherBlock.removeAllListenerToChangeMonthEvent();
+            monthSwitcherBlock.addListenerToChangeMonthEvent(jQuery.proxy(viewBlock.setActiveMonth, viewBlock));
+            viewBlock.setActiveMonth(monthSwitcherBlock.params.curMonthValue);
+        }
+    }
+})
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl('b-calendar-view', {
+
     updateDayBlock: function(date) {
-        var blocks = this.findBlocksInside('b-day-in-calendar');
+        var blocks = this.findBlocksInside('b-day');
         
         for (var i=0; i < blocks.length; i++) {
             if (checkEqualsDateWithoutTime(date, blocks[i].params.date)) {
                 var bemjson = {
-                    block: 'b-day-in-calendar',
+                    block: 'b-day',
+                    mods: { view: 'calendar' },
                     day: {
                         num: blocks[i].params.date.getDate(),
                         interval: lecturesShedule.getLecturesIntervalForDay({  
@@ -4043,14 +3956,15 @@ BEM.DOM.decl('b-month-calendar', {
     },
     
     // смена месяца
-    onChangeMonth: function (date) {
-        var dateArray = this.initCalendarMonth(new Date(date));
-        var bemjson = new Array();
+    setActiveMonth: function (date) {
+        var dateArray = this.findBlockOutside('b-view-container').getCalendarMonth(new Date(date));
+        var bemjson = [];
         var intervalsForDays = lecturesShedule.getLecturesIntervalForPeriod(dateArray[0], dateArray[dateArray.length-1]);
         
         for (var i = 0; i < dateArray.length; i++) {
             bemjson.push( {
-                block: 'b-day-in-calendar',
+                block: 'b-day',
+                mods: { view: 'calendar' },
                 day: {
                     num: dateArray[i].getDate(),
                     interval: intervalsForDays[i]
@@ -4067,7 +3981,7 @@ BEM.DOM.decl('b-month-calendar', {
         var now = new Date();
         var selectedMonth = date.getMonth();
         var searchingDay = ((now.getYear() == date.getYear()) && (now.getMonth() == selectedMonth)) ? now.getDate() : 1;
-        var daysBlocks = this.findBlocksInside('b-day-in-calendar');
+        var daysBlocks = this.findBlocksInside('b-day');
         
         for (var i=0; i < daysBlocks.length; i++) {
             if ((daysBlocks[i].params.date.getMonth() == selectedMonth) && (daysBlocks[i].params.date.getDate() == searchingDay)) {
@@ -4075,15 +3989,7 @@ BEM.DOM.decl('b-month-calendar', {
                 break;
             }
         };
-    },
-    
-    onSetMod : {
-
-        'js' : function() {
-            /* ... */
-        }
     }
-    
 });
 
 })();
@@ -4093,45 +3999,20 @@ BEM.DOM.decl('b-month-calendar', {
 
 (function(undefined) {
 
-BEM.DOM.decl('b-lecture', {
-    
-    edit : function(dialog) {
-        var form = dialog.findBlockInside('b-dialog-content').elem('form');
-        
-        if (!form) {
-            return;
-        }
-        
-        var rawParams = form.serializeArray();
-        var proceedParams = new Object();
-        
-        for (var i=0; i < rawParams.length; i++) {
-            proceedParams[rawParams[i].name] = rawParams[i].value;
-        }
-        
-        if (!this.calendarBlock) {
-            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
-        }
-        
-        var date = lecturesShedule.getLectureById(this.params.lectureId).date;
-        var l = lecturesShedule.editLecture(this.params.lectureId, proceedParams['caption'], proceedParams['lector'], 
-                           dateAndTimeStringToFullDate(date, proceedParams['time-start']), proceedParams['duration'].slice(0,-5), 
-                           proceedParams['presentation']);
-                                    
-        BEM.DOM.update(this.domElem, $(BEMHTML.apply(this.findBlockOutside('b-day-sheduler').getBemjsonForLecture(l))).html());
-        
-        this.calendarBlock.updateDayBlock(l.date);
-    },
+BEM.DOM.decl({ block: 'b-day' }, {
+},
 
-    onSetMod : {
-
-        'js' : function() {
-            /* ... */
-        }
-
+{
+    live : function(arguments) {
+        this.__base.apply(this, arguments);
+        
+        this.liveBindTo('click', function(e) {
+                this._onClick(e);
+        });
+        
     }
 
-});
+})
 
 })();
 ;
@@ -4140,7 +4021,89 @@ BEM.DOM.decl('b-lecture', {
 
 (function(undefined) {
 
-BEM.DOM.decl('b-lectures-list', {
+BEM.DOM.decl({ block: 'b-day', modName: 'view', modVal: 'calendar' }, {
+
+    _onClick : function(e) {
+        this.activate();
+    },
+
+    activate : function() {
+        if (!this.container) {
+            this.container = this.findBlockOutside('b-calendar-view');
+        }
+        this.container.changeActiveDay(this);
+    },
+    
+    onSetMod : {
+
+        'js' : function() {
+            this.params.date = new Date(this.params.date);
+        }
+    }
+})
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl('b-list-view', {
+
+    // смена месяца
+    setActiveMonth: function (date) {
+        var dateArray = this.findBlockOutside('b-view-container').getCalendarMonth(new Date(date));
+        var lecturesByDays = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1]);
+        
+        var bemjson = [];
+        
+        for (var i = 0; i < lecturesByDays.length; i++) {
+            bemjson.push( {
+                block: 'b-day',
+                mods: { view: 'list' },
+                day: {
+                    num: lecturesByDays[i].date.getDate(),
+                    interval: lecturesShedule.getLecturesIntervalForDay(lecturesByDays[i])
+                },
+            });
+            
+            var bemjsomForLectures = []; 
+            for (var j = 0; j < lecturesByDays[i].lectures.length; j++) {
+                var lecture = lecturesByDays[i].lectures[j];
+                
+                bemjsomForLectures.push({
+                    block: 'b-lecture',
+                    lecture:  { 
+                        caption: lecture.caption,
+                        lector: lecture.lector,
+                        timeStart: dateToTimeString(lecture.date),
+                        timeEnd: dateToTimeString(getEndTime(lecture.date, lecture.duration)),
+                        duration: lecture.duration,
+                        presentation: lecture.presentation
+                    },
+                    js: { lectureId: lecture.id }
+                });
+            }
+            
+            bemjson.push( {
+                block: 'b-lectures-list',
+                mods: { view: 'list' },
+                content: bemjsomForLectures
+            });
+        };
+        
+        BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+    }
+})
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl({ block: 'b-day', modName: 'view', modVal: 'list'}, {
 
     onSetMod : {
 
@@ -4148,12 +4111,6 @@ BEM.DOM.decl('b-lectures-list', {
             /* ... */
         }
 
-    }
-
-}, {
-
-    live : function() {
-        /* ... */
     }
 
 });
@@ -4185,7 +4142,7 @@ BEM.DOM.decl('b-day-sheduler', {
     onChangeActiveDay : function (date) {
         this.activeDay = new Date(date);
         var lectures = lecturesShedule.getLecturesByDay(date);
-        var bemjson = new Array();
+        var bemjson = [];
                  
         for (var i=0; i < lectures.length; i++) {
             bemjson.push(this.getBemjsonForLecture(lectures[i]));
@@ -4227,7 +4184,7 @@ BEM.DOM.decl('b-day-sheduler', {
         }
         
         if (!this.calendarBlock) {
-            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
         }
         
         this.calendarBlock.updateDayBlock(this.activeDay);
@@ -4247,6 +4204,135 @@ BEM.DOM.decl('b-day-sheduler', {
         /* ... */
     }
 
+});
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl('b-lecture', {
+    
+    edit : function(dialog) {
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
+        
+        if (!form) {
+            return;
+        }
+        
+        var rawParams = form.serializeArray();
+        var proceedParams = new Object();
+        
+        for (var i=0; i < rawParams.length; i++) {
+            proceedParams[rawParams[i].name] = rawParams[i].value;
+        }
+        
+        var date = lecturesShedule.getLectureById(this.params.lectureId).date;
+        var l = lecturesShedule.editLecture(this.params.lectureId, proceedParams['caption'], proceedParams['lector'], 
+                           dateAndTimeStringToFullDate(date, proceedParams['time-start']), proceedParams['duration'].slice(0,-5), 
+                           proceedParams['presentation']);
+                                    
+        BEM.DOM.update(this.domElem, $(BEMHTML.apply(this.findBlockOutside('b-day-sheduler').getBemjsonForLecture(l))).html());
+        
+        // обновляем интервал в ячейке дня на календаре
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
+        }
+        this.calendarBlock.updateDayBlock(l.date);
+    },
+
+    onSetMod : {
+
+        'js' : function() {
+            /* ... */
+        }
+
+    }
+
+});
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl('b-view-mode-switcher', {
+
+    setViewMode: function(view, isFirstInit) {
+        if ((view == this.params.view) && !isFirstInit){
+            return;
+        }
+        
+        BEM.DOM.update(this.lectionsViewContainer.domElem, BEMHTML.apply({ block: 'b-view-container', js: true, mods: { view: view } }));
+        this.params.view = view;
+    },
+
+    onSetMod : {
+
+        'js' : function() {
+            this.lectionsViewContainer = this.findBlockOutside('b-page').findBlockInside('b-lectures-content-wrapper');
+            this.setViewMode(this.params.view, true);
+        }
+
+    }
+
+})
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl('b-month-switcher', {
+
+    nextMonth : function () {
+        this.params.curMonthValue.setMonth(this.params.curMonthValue.getMonth()+1);
+        this.onChangeMonth();
+    },
+    
+    prevMonth : function () {
+        var month = this.params.curMonthValue.getMonth();
+        
+        if (month) {
+            this.params.curMonthValue.setMonth(month-1);
+        }
+        else {
+            this.params.curMonthValue = new Date(this.params.curMonthValue.getYear()+1899, 11)
+        };
+        
+        this.onChangeMonth();
+    },
+    
+    addListenerToChangeMonthEvent : function(callback) {
+        this.listenersToChangeMonthEvent.push(callback);
+    },
+    
+    removeAllListenerToChangeMonthEvent : function() {
+        this.listenersToChangeMonthEvent = [];
+    },
+    
+    onChangeMonth : function () {
+        BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
+        
+        for (i=0; i < this.listenersToChangeMonthEvent.length; i++) {
+            this.listenersToChangeMonthEvent[i](this.params.curMonthValue);
+        }
+    },
+
+    onSetMod : {
+
+        'js' : function() {
+            this.params.curMonthValue = new Date(this.params.curMonthValue);
+            this.listenersToChangeMonthEvent = [];
+            this.onChangeMonth();
+        }
+    }
 });
 
 })();

@@ -23,20 +23,27 @@ BEM.DOM.decl('b-month-switcher', {
         this.onChangeMonth();
     },
     
+    addListenerToChangeMonthEvent : function(callback) {
+        this.listenersToChangeMonthEvent.push(callback);
+    },
+    
+    removeAllListenerToChangeMonthEvent : function() {
+        this.listenersToChangeMonthEvent = [];
+    },
+    
     onChangeMonth : function () {
         BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
         
-        if (!this.monthCalendar) {
-            this.monthCalendar = this.findBlockOutside('b-page').findBlockInside('b-month-calendar');
-        };
-                
-        this.monthCalendar.onChangeMonth(this.params.curMonthValue);
+        for (i=0; i < this.listenersToChangeMonthEvent.length; i++) {
+            this.listenersToChangeMonthEvent[i](this.params.curMonthValue);
+        }
     },
 
     onSetMod : {
 
         'js' : function() {
             this.params.curMonthValue = new Date(this.params.curMonthValue);
+            this.listenersToChangeMonthEvent = [];
             this.onChangeMonth();
         }
     }

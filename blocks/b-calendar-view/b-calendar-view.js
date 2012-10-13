@@ -3,43 +3,16 @@
 
 (function(undefined) {
 
-BEM.DOM.decl('b-month-calendar', {
+BEM.DOM.decl('b-calendar-view', {
 
-    // Возвращает массив Date, представляющий месяц (month, year) в каледаре
-    initCalendarMonth: function (date) {
-        date.setDate(1);
-        var dayOfWeek = date.getDay(date);
-        var month = date.getMonth();
-        var year = date.getYear(); 
-        
-        dayOfWeek = (dayOfWeek == 0) ? 6 : dayOfWeek - 1;
-    
-        if (dayOfWeek != 0) {
-            date.setDate(0);
-            if (dayOfWeek > 1) {
-                date.setDate(date.getDate() - (dayOfWeek - 1));
-            }
-        }
-    
-        var calendarMonth = new Array();
-        var y = date.getYear();
-        
-        while (((date.getMonth() <= month) && (y <= year) || (y < year)) || (date.getDay() != 1)) {
-            y = date.getYear();
-            calendarMonth.push(new Date(date.valueOf()));
-            date.setDate(date.getDate() + 1);
-        }
-    
-        return calendarMonth;
-    },
-    
     updateDayBlock: function(date) {
-        var blocks = this.findBlocksInside('b-day-in-calendar');
+        var blocks = this.findBlocksInside('b-day');
         
         for (var i=0; i < blocks.length; i++) {
             if (checkEqualsDateWithoutTime(date, blocks[i].params.date)) {
                 var bemjson = {
-                    block: 'b-day-in-calendar',
+                    block: 'b-day',
+                    mods: { view: 'calendar' },
                     day: {
                         num: blocks[i].params.date.getDate(),
                         interval: lecturesShedule.getLecturesIntervalForDay({  
@@ -71,14 +44,15 @@ BEM.DOM.decl('b-month-calendar', {
     },
     
     // смена месяца
-    onChangeMonth: function (date) {
-        var dateArray = this.initCalendarMonth(new Date(date));
-        var bemjson = new Array();
+    setActiveMonth: function (date) {
+        var dateArray = this.findBlockOutside('b-view-container').getCalendarMonth(new Date(date));
+        var bemjson = [];
         var intervalsForDays = lecturesShedule.getLecturesIntervalForPeriod(dateArray[0], dateArray[dateArray.length-1]);
         
         for (var i = 0; i < dateArray.length; i++) {
             bemjson.push( {
-                block: 'b-day-in-calendar',
+                block: 'b-day',
+                mods: { view: 'calendar' },
                 day: {
                     num: dateArray[i].getDate(),
                     interval: intervalsForDays[i]
@@ -95,7 +69,7 @@ BEM.DOM.decl('b-month-calendar', {
         var now = new Date();
         var selectedMonth = date.getMonth();
         var searchingDay = ((now.getYear() == date.getYear()) && (now.getMonth() == selectedMonth)) ? now.getDate() : 1;
-        var daysBlocks = this.findBlocksInside('b-day-in-calendar');
+        var daysBlocks = this.findBlocksInside('b-day');
         
         for (var i=0; i < daysBlocks.length; i++) {
             if ((daysBlocks[i].params.date.getMonth() == selectedMonth) && (daysBlocks[i].params.date.getDate() == searchingDay)) {
@@ -103,15 +77,7 @@ BEM.DOM.decl('b-month-calendar', {
                 break;
             }
         };
-    },
-    
-    onSetMod : {
-
-        'js' : function() {
-            /* ... */
-        }
     }
-    
 });
 
 })();

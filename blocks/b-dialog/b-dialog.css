@@ -9,12 +9,60 @@
     display: none;
 }
 
+.b-dialog label {
+    font-size: 14px !important;
+    line-height: 20px;
+}
+.b-dialog-content {
+    padding: 20px 16px;
+}
+
+.b-dialog input {
+    border: 1px #cecece solid;
+    display: block;
+    width: 96%;
+    height: 20px;
+    padding: 5px 2%;
+    margin-bottom: 7px;
+}
+
+.b-dialog-content__input-duration {
+    border: none !important;
+    display: inline !important;
+    width: 50px !important;
+    margin-left: 3px;
+}
+
+.b-dialog-content__presentation {
+    display: none;
+}
+
+.b-dialog .b-link{
+    margin-left: 10px;
+    font-size: 16px !important;
+}
+
 .b-dialog__dialog-box
 {
     position: relative;
-    width: 250px;
-    height: 400px;
+    width: 384px;
     background-color: #ffffff;
     margin: 0 auto;
-    top: 200px;
+    top: 160px;
+    padding-bottom: 40px;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.b-dialog__head {
+    background-color: #eee;
+    padding: 20px 0px 20px 16px;
+    font-size: 18px !important;
+}
+
+.b-dialog__bottom-toolbox {
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
 }

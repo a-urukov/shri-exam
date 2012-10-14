@@ -61,6 +61,8 @@ BEM.DOM.decl('b-calendar-view', {
             });
         };
         
+        var daysBlocks = this.findBlocksInside('b-day');
+        
         BEM.DOM.update(this.elem('days-container'), BEMHTML.apply(bemjson));
         
         // смена активного дня

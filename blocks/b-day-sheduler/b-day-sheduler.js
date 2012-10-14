@@ -33,6 +33,7 @@ BEM.DOM.decl('b-day-sheduler', {
             this.lecturesContainer = this.findBlockInside('b-lectures-container');
         };
         
+        
         BEM.DOM.update(this.lecturesContainer.domElem, BEMHTML.apply({ block: 'b-lectures-list', content: bemjson }));
     },
     

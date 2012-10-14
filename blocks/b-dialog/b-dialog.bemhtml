@@ -21,13 +21,13 @@ block b-dialog {
                 content: [
                     {
                         block: 'b-link',
-                        mods: { action: 'dialog-ok', pseudo: 'yes' },
-                        content: 'ОК'
+                        mods: { action: 'dialog-ok', pseudo: 'yes', style: 'default' },
+                        content: 'Сохранить'
                     },
                     {
                         block: 'b-link',
-                        mods: { action: 'dialog-cancel', pseudo: 'yes' },
-                        content: 'Cancel'
+                        mods: { action: 'dialog-cancel', pseudo: 'yes', style: 'default' },
+                        content: 'Отмена'
                     }
                 ]
             }

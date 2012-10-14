@@ -3982,6 +3982,8 @@ BEM.DOM.decl('b-calendar-view', {
             });
         };
         
+        var daysBlocks = this.findBlocksInside('b-day');
+        
         BEM.DOM.update(this.elem('days-container'), BEMHTML.apply(bemjson));
         
         // смена активного дня
@@ -4145,6 +4147,7 @@ BEM.DOM.decl('b-day-sheduler', {
         if (!this.lecturesContainer) {
             this.lecturesContainer = this.findBlockInside('b-lectures-container');
         };
+        
         
         BEM.DOM.update(this.lecturesContainer.domElem, BEMHTML.apply({ block: 'b-lectures-list', content: bemjson }));
     },

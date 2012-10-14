@@ -6150,16 +6150,18 @@ var BEMHTML = (function(exports) {
                                 block: "b-link",
                                 mods: {
                                     action: "dialog-ok",
-                                    pseudo: "yes"
+                                    pseudo: "yes",
+                                    style: "default"
                                 },
-                                content: "ОК"
+                                content: "Сохранить"
                             }, {
                                 block: "b-link",
                                 mods: {
                                     action: "dialog-cancel",
-                                    pseudo: "yes"
+                                    pseudo: "yes",
+                                    style: "default"
                                 },
-                                content: "Cancel"
+                                content: "Отмена"
                             } ]
                         } ]
                     };

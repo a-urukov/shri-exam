@@ -4318,6 +4318,31 @@ BEM.DOM.decl('b-lecture', {
 
 (function(undefined) {
 
+BEM.DOM.decl('b-lectures-list', {
+
+    onSetMod : {
+
+        'js' : function() {
+            /* ... */
+        }
+
+    }
+
+}, {
+
+    live : function() {
+        /* ... */
+    }
+
+});
+
+})();
+;
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
 BEM.DOM.decl('b-view-mode-switcher', {
 
     setViewMode: function(view, isFirstInit) {

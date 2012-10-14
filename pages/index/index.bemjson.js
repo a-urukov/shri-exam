@@ -53,13 +53,8 @@
                             },
                         ]
                     },
-                    
                     {
                         block: 'b-lectures-content-wrapper',
-                    },
-                    {
-                        block: 'grid',
-                        content: '<script type="text/javascript" src="modulargrid.js"></script>'
                     }
                 ]
             },

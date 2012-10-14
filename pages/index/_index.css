@@ -373,9 +373,9 @@ li { list-style: none; }
 .b-dialog input {
     border: 1px #cecece solid;
     display: block;
-    width: 96%;
+    width: 92%;
     height: 20px;
-    padding: 5px 2%;
+    padding: 5px 4%;
     margin-bottom: 7px;
 }
 
@@ -388,6 +388,15 @@ li { list-style: none; }
 
 .b-dialog-content__presentation {
     display: none;
+}
+
+.b-dialog-content__textarea-data {
+    border: 1px #cecece solid;
+    display: block;
+    width: 96%;
+    height: 200px;
+    padding: 5px 2%;
+    margin-bottom: 7px;
 }
 
 .b-dialog .b-link{

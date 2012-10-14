@@ -32,15 +32,38 @@ BEM.DOM.decl('b-view-container', {
         return calendarMonth;
     },
     
+    importShedule : function (dialog) {
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
+        
+        if (!form) {
+            return;
+        }
+        
+        var rawParams = form.serializeArray();
+        var proceedParams = new Object();
+        
+        for (var i=0; i < rawParams.length; i++) {
+            proceedParams[rawParams[i].name] = rawParams[i].value;
+        }
+        
+        lecturesShedule.importShedule(proceedParams['data']);
+        
+        this.initView();
+    },
+    
+    initView : function (argument) {
+        var monthSwitcherBlock = this.findBlockOutside('b-page').findBlockInside('b-month-switcher');
+        var viewBlock = (this.getMod('view') == 'calendar-view') ? this.findBlockInside('b-calendar-view') : this.findBlockInside('b-list-view');
+        
+        monthSwitcherBlock.removeAllListenerToChangeMonthEvent();
+        monthSwitcherBlock.addListenerToChangeMonthEvent(jQuery.proxy(viewBlock.setActiveMonth, viewBlock));
+        viewBlock.setActiveMonth(monthSwitcherBlock.params.curMonthValue);
+    },
+    
     onSetMod : {
         
         'js' : function() {
-            var monthSwitcherBlock = this.findBlockOutside('b-page').findBlockInside('b-month-switcher');
-            var viewBlock = (this.getMod('view') == 'calendar-view') ? this.findBlockInside('b-calendar-view') : this.findBlockInside('b-list-view');
-            
-            monthSwitcherBlock.removeAllListenerToChangeMonthEvent();
-            monthSwitcherBlock.addListenerToChangeMonthEvent(jQuery.proxy(viewBlock.setActiveMonth, viewBlock));
-            viewBlock.setActiveMonth(monthSwitcherBlock.params.curMonthValue);
+            this.initView();
         }
     }
 })

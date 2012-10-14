@@ -49,5 +49,15 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lec
     }
 });
 
+BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'export-import'}, {
+
+    onSetMod : {
+       'js' : function() {
+            if (this.params.data) {
+                BEM.DOM.update(this.elem('textarea-data'), this.params.data);
+            }
+        }
+    }
+});
 
 })();

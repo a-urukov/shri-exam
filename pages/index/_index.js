@@ -3561,7 +3561,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
                 var l = this.lecsGrpByDay[i].lectures[j];
-                result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ']';
+                result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ';dr:' + l.duration + ']';
             }
         }
     
@@ -3571,17 +3571,17 @@ function checkEqualsDateWithoutTime(date1, date2) {
     /**
     * Импорт расписания (из строки)
     * @this {LecturesShedule}
-    * @param {String} cтрока с набором блоков формата: [c:название_лекции;l:имя_лектора;d:MON DD YYY hh:mm]
+    * @param {String} cтрока с набором блоков формата: [c:название_лекции;l:имя_лектора;d:MON DD YYY hh:mm;dr:длительность_лекции]
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.importShedule = function (str) {
-        var regExp = /\[c:(.+?);l:(.+?);d:(\S{3}\s\d{2}\s\d{4}\s\d{2}:\d{2})]/g;
+        var regExp = /\[c:(.+?);l:(.+?);d:(\S{3}\s\d{2}\s\d{4}\s\d{2}:\d{2});dr:(\d*)]/g;
         var buffer;
         
         this.clearShedule();
         
         while ((buffer = regExp.exec(str)) != null) {
-            this.addLecture(buffer[1], buffer[2], new Date(buffer[3]));
+            this.addNewLecture(buffer[1], buffer[2], new Date(buffer[3]), buffer[4]);
         }
     
         return this;
@@ -3749,6 +3749,28 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, 
     }
 });
 
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'export' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { data: lecturesShedule.exportShedule() }, mods: { type: 'export-import' }});
+        
+        var callback = function (argument) { };
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Экспорт расписания');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'import' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'export-import' }});
+        var callback = jQuery.proxy(this.findBlockOutside('b-page').findBlockInside('b-view-container'), 'importShedule'); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Импорт расписания');
+    }
+});
+
 
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {
@@ -3869,6 +3891,16 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lec
     }
 });
 
+BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'export-import'}, {
+
+    onSetMod : {
+       'js' : function() {
+            if (this.params.data) {
+                BEM.DOM.update(this.elem('textarea-data'), this.params.data);
+            }
+        }
+    }
+});
 
 })();
 ;
@@ -3906,15 +3938,38 @@ BEM.DOM.decl('b-view-container', {
         return calendarMonth;
     },
     
+    importShedule : function (dialog) {
+        var form = dialog.findBlockInside('b-dialog-content').elem('form');
+        
+        if (!form) {
+            return;
+        }
+        
+        var rawParams = form.serializeArray();
+        var proceedParams = new Object();
+        
+        for (var i=0; i < rawParams.length; i++) {
+            proceedParams[rawParams[i].name] = rawParams[i].value;
+        }
+        
+        lecturesShedule.importShedule(proceedParams['data']);
+        
+        this.initView();
+    },
+    
+    initView : function (argument) {
+        var monthSwitcherBlock = this.findBlockOutside('b-page').findBlockInside('b-month-switcher');
+        var viewBlock = (this.getMod('view') == 'calendar-view') ? this.findBlockInside('b-calendar-view') : this.findBlockInside('b-list-view');
+        
+        monthSwitcherBlock.removeAllListenerToChangeMonthEvent();
+        monthSwitcherBlock.addListenerToChangeMonthEvent(jQuery.proxy(viewBlock.setActiveMonth, viewBlock));
+        viewBlock.setActiveMonth(monthSwitcherBlock.params.curMonthValue);
+    },
+    
     onSetMod : {
         
         'js' : function() {
-            var monthSwitcherBlock = this.findBlockOutside('b-page').findBlockInside('b-month-switcher');
-            var viewBlock = (this.getMod('view') == 'calendar-view') ? this.findBlockInside('b-calendar-view') : this.findBlockInside('b-list-view');
-            
-            monthSwitcherBlock.removeAllListenerToChangeMonthEvent();
-            monthSwitcherBlock.addListenerToChangeMonthEvent(jQuery.proxy(viewBlock.setActiveMonth, viewBlock));
-            viewBlock.setActiveMonth(monthSwitcherBlock.params.curMonthValue);
+            this.initView();
         }
     }
 })

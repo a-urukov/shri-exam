@@ -392,7 +392,7 @@ function checkEqualsDateWithoutTime(date1, date2) {
         for (var i=0; i < this.lecsGrpByDay.length; i++) {
             for (var j=0; j < this.lecsGrpByDay[i].lectures.length; j++) {
                 var l = this.lecsGrpByDay[i].lectures[j];
-                result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ']';
+                result += '[c:' + l.caption + ';l:' + l.lector + ';d:' + l.date.toString().substring(4, 21) + ';dr:' + l.duration + ']';
             }
         }
     
@@ -402,17 +402,17 @@ function checkEqualsDateWithoutTime(date1, date2) {
     /**
     * Импорт расписания (из строки)
     * @this {LecturesShedule}
-    * @param {String} cтрока с набором блоков формата: [c:название_лекции;l:имя_лектора;d:MON DD YYY hh:mm]
+    * @param {String} cтрока с набором блоков формата: [c:название_лекции;l:имя_лектора;d:MON DD YYY hh:mm;dr:длительность_лекции]
     * @returns {LecturesShedule}
     */
     LecturesShedule.prototype.importShedule = function (str) {
-        var regExp = /\[c:(.+?);l:(.+?);d:(\S{3}\s\d{2}\s\d{4}\s\d{2}:\d{2})]/g;
+        var regExp = /\[c:(.+?);l:(.+?);d:(\S{3}\s\d{2}\s\d{4}\s\d{2}:\d{2});dr:(\d*)]/g;
         var buffer;
         
         this.clearShedule();
         
         while ((buffer = regExp.exec(str)) != null) {
-            this.addLecture(buffer[1], buffer[2], new Date(buffer[3]));
+            this.addNewLecture(buffer[1], buffer[2], new Date(buffer[3]), buffer[4]);
         }
     
         return this;

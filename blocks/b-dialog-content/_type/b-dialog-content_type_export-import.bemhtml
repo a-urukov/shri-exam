@@ -1,0 +1,23 @@
+block b-dialog-content, mod type export-import  {
+    content: {
+        elem: 'form',
+        tag: 'form',
+        content: [
+            {
+                elem: 'data',
+                content: [
+                    {
+                        elem: 'label-data',
+                        tag: 'label',
+                        content: 'Расписание лекций:'
+                    },
+                    {
+                        elem: 'textarea-data',
+                        tag: 'textarea',
+                        attrs: { name: 'data' }
+                    }
+                ]
+            }
+        ]
+    }
+}

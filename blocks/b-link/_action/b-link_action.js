@@ -35,6 +35,28 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, 
     }
 });
 
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'export' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        var content = BEMHTML.apply({ block: 'b-dialog-content', js: { data: lecturesShedule.exportShedule() }, mods: { type: 'export-import' }});
+        
+        var callback = function (argument) { };
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Экспорт расписания');
+    }
+});
+
+BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'import' }, {
+    _onClick : function(e) {
+        this.__base.apply(this, arguments);
+        
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'export-import' }});
+        var callback = jQuery.proxy(this.findBlockOutside('b-page').findBlockInside('b-view-container'), 'importShedule'); 
+        
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Импорт расписания');
+    }
+});
+
 
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'add-lecture' }, {
     _onClick : function(e) {

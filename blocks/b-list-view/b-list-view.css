@@ -1,3 +1,26 @@
-.b-list-view
+.b-list-view {
+    margin: 20px 0 0 288px; 
+    overflow: hidden;
+}
+
+.b-day_view_list
 {
+    float: left;
+    width: 80px;
+}
+
+.b-lectures-list_view_list {
+    margin-left: 96px; 
+
+}
+
+.b-lectures-list_view_list .b-lecture {
+    background-color: #fff !important;
+    color: #000 !important;
+    border-left: 1px solid #ff670f;
+    padding-left: 16px;
+}
+
+.b-lectures-list_view_list .b-lecture:hover .b-lecture__toolbox {
+    display: none !important;
 }

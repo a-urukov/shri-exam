@@ -32,7 +32,7 @@ BEM.DOM.decl('b-month-switcher', {
     },
     
     onChangeMonth : function () {
-        BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
+        BEM.DOM.update(this.elem('current-month'), $('<span>').text(dateToMonthAndYearString(this.params.curMonthValue)));
         
         for (i=0; i < this.listenersToChangeMonthEvent.length; i++) {
             this.listenersToChangeMonthEvent[i](this.params.curMonthValue);

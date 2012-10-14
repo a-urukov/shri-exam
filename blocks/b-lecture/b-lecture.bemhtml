@@ -5,6 +5,7 @@ block b-lecture, !this._lecture {
 }
 
 block b-lecture {
+    tag: 'li',
     content: [
         {
             elem: 'time'
@@ -15,17 +16,24 @@ block b-lecture {
         { 
             elem: 'lector'
         },
-        {
-            block: 'b-link',
-            mods: { pseudo: 'yes', action: 'edit-lecture' },
-            content: 'Редактировать'
+        { 
+            elem: 'presentation'
         },
         {
-            block: 'b-link',
-            mods: { pseudo: 'yes', action: 'remove-lecture' },
-            content: 'Удалить'
+            elem: 'toolbox',
+            content: [
+                {
+                    block: 'b-link',
+                    mods: { pseudo: 'yes', action: 'edit-lecture', style: 'default' },
+                    content: 'Редактировать'
+                },
+                {
+                    block: 'b-link',
+                    mods: { pseudo: 'yes', action: 'remove-lecture', style: 'default' },
+                    content: 'Удалить'
+                }
+            ]
         }
-        
     ]
 }
 
@@ -45,5 +53,11 @@ block b-lecture, elem time {
     content: {
         return (this._lecture.timeStart ? this._lecture.timeStart : '–') + '–' + (this._lecture.timeEnd ? this._lecture.timeEnd : '–')
                + (this._lecture.duration ? ' (' + this._lecture.duration + ' мин.)' : '');
+    }
+}
+
+block b-lecture, elem presentation {
+    content: {
+        return this._lecture.presentation ? this._lecture.presentation : '–';
     }
 }

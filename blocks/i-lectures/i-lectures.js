@@ -429,6 +429,16 @@ function dateToMonthAndYearString(date) {
     return months[date.getMonth()] + ' ' + (date.getYear() + 1900);
 }
 
+/** По заданной дате возвращает строку датой и названием месяца
+ *  @param {Date} date дата  
+**/
+function dateToDayAndMonthString(date) {
+    var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    
+    return date.getDate() + ' ' + months[date.getMonth()];
+}
+
+
 /** По заданной дате возвращает строку с временем в формате hh:mm*
  *  @param {Date} date дата  
 **/

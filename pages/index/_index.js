@@ -3598,6 +3598,16 @@ function dateToMonthAndYearString(date) {
     return months[date.getMonth()] + ' ' + (date.getYear() + 1900);
 }
 
+/** По заданной дате возвращает строку датой и названием месяца
+ *  @param {Date} date дата  
+**/
+function dateToDayAndMonthString(date) {
+    var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    
+    return date.getDate() + ' ' + months[date.getMonth()];
+}
+
+
 /** По заданной дате возвращает строку с временем в формате hh:mm*
  *  @param {Date} date дата  
 **/
@@ -4052,8 +4062,7 @@ BEM.DOM.decl('b-list-view', {
 
     // смена месяца
     setActiveMonth: function (date) {
-        var dateArray = this.findBlockOutside('b-view-container').getCalendarMonth(new Date(date));
-        var lecturesByDays = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1]);
+        var lecturesByDays = lecturesShedule.getLecturesByDate(date.getYear()+1900, date.getMonth());
         
         var bemjson = [];
         
@@ -4062,7 +4071,7 @@ BEM.DOM.decl('b-list-view', {
                 block: 'b-day',
                 mods: { view: 'list' },
                 day: {
-                    num: lecturesByDays[i].date.getDate(),
+                    num: dateToDayAndMonthString(lecturesByDays[i].date),
                     interval: lecturesShedule.getLecturesIntervalForDay(lecturesByDays[i])
                 },
             });
@@ -4092,7 +4101,12 @@ BEM.DOM.decl('b-list-view', {
             });
         };
         
-        BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        if (bemjson.length) {
+            BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        }
+        else {
+            BEM.DOM.update(this.domElem, BEMHTML.apply({ elem: 'empty', content: 'Нет лекций в этом месяце' }));
+        }
     }
 })
 })();
@@ -4297,7 +4311,7 @@ BEM.DOM.decl('b-month-switcher', {
     },
     
     onChangeMonth : function () {
-        BEM.DOM.update(this.elem('current-month'), dateToMonthAndYearString(this.params.curMonthValue));
+        BEM.DOM.update(this.elem('current-month'), $('<span>').text(dateToMonthAndYearString(this.params.curMonthValue)));
         
         for (i=0; i < this.listenersToChangeMonthEvent.length; i++) {
             this.listenersToChangeMonthEvent[i](this.params.curMonthValue);

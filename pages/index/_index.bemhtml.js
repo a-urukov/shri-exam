@@ -2,7 +2,7 @@ var BEMHTML = (function(exports) {
     var __r8, __r10, __r12, __r14, __r16, __r18, __r20, __r22, __r24, __r26, __r33, __r34, __r36, __r37, __r38, __r40, __r41, __r42, __r46, __r48;
     exports.apply = apply;
     function apply() {
-        return $146.call(this);
+        return $150.call(this);
     }
     function $2() {
         (function(bem_) {
@@ -230,13 +230,13 @@ var BEMHTML = (function(exports) {
     }
     function $7() {
         var _this = this, BEM_ = _this["BEM"], v = this["ctx"], buf = this["_buf"], tag;
-        tag = ("", __r8 = this["_mode"], this["_mode"] = "tag", __r9 = $146.call(this), this["_mode"] = __r8, "", __r9);
+        tag = ("", __r8 = this["_mode"], this["_mode"] = "tag", __r9 = $150.call(this), this["_mode"] = __r8, "", __r9);
         typeof tag != "undefined" || (tag = v["tag"]);
         typeof tag != "undefined" || (tag = "div");
         if (tag) {
             var jsParams, js;
             if (this["block"] && v["js"] !== false) {
-                js = ("", __r12 = this["_mode"], this["_mode"] = "js", __r13 = $146.call(this), this["_mode"] = __r12, "", __r13);
+                js = ("", __r12 = this["_mode"], this["_mode"] = "js", __r13 = $150.call(this), this["_mode"] = __r12, "", __r13);
                 js = js ? this["_"].extend(v["js"], js === true ? {} : js) : v["js"] === true ? {} : v["js"];
                 js && ((jsParams = {})[BEM_["INTERNAL"].buildClass(this["block"], v["elem"])] = js);
             } else {
@@ -244,16 +244,16 @@ var BEMHTML = (function(exports) {
             }
             undefined;
             buf.push("<", tag);
-            var isBEM = ("", __r14 = this["_mode"], this["_mode"] = "bem", __r15 = $146.call(this), this["_mode"] = __r14, "", __r15);
+            var isBEM = ("", __r14 = this["_mode"], this["_mode"] = "bem", __r15 = $150.call(this), this["_mode"] = __r14, "", __r15);
             typeof isBEM != "undefined" || (isBEM = typeof v["bem"] != "undefined" ? v["bem"] : v["block"] || v["elem"]);
-            var cls = ("", __r16 = this["_mode"], this["_mode"] = "cls", __r17 = $146.call(this), this["_mode"] = __r16, "", __r17);
+            var cls = ("", __r16 = this["_mode"], this["_mode"] = "cls", __r17 = $150.call(this), this["_mode"] = __r16, "", __r17);
             cls || (cls = v["cls"]);
             var addJSInitClass = v["block"] && jsParams;
             if (isBEM || cls) {
                 buf.push(' class="');
                 if (isBEM) {
                     BEM_["INTERNAL"].buildClasses(this["block"], v["elem"], v["elemMods"] || v["mods"], buf);
-                    var mix = ("", __r18 = this["_mode"], this["_mode"] = "mix", __r19 = $146.call(this), this["_mode"] = __r18, "", __r19);
+                    var mix = ("", __r18 = this["_mode"], this["_mode"] = "mix", __r19 = $150.call(this), this["_mode"] = __r18, "", __r19);
                     v["mix"] && (mix = mix ? mix.concat(v["mix"]) : v["mix"]);
                     if (mix) {
                         var i = 0, l = mix["length"], mixItem, hasItem, block;
@@ -284,13 +284,13 @@ var BEMHTML = (function(exports) {
             }
             undefined;
             if (jsParams) {
-                var jsAttr = ("", __r22 = this["_mode"], this["_mode"] = "jsAttr", __r23 = $146.call(this), this["_mode"] = __r22, "", __r23);
+                var jsAttr = ("", __r22 = this["_mode"], this["_mode"] = "jsAttr", __r23 = $150.call(this), this["_mode"] = __r22, "", __r23);
                 buf.push(" ", jsAttr || "onclick", '="return ', this["_"].attrEscape(JSON.stringify(jsParams)), '"');
             } else {
                 undefined;
             }
             undefined;
-            var attrs = ("", __r24 = this["_mode"], this["_mode"] = "attrs", __r25 = $146.call(this), this["_mode"] = __r24, "", __r25);
+            var attrs = ("", __r24 = this["_mode"], this["_mode"] = "attrs", __r25 = $150.call(this), this["_mode"] = __r24, "", __r25);
             attrs = this["_"].extend(attrs, v["attrs"]);
             if (attrs) {
                 var name;
@@ -307,7 +307,7 @@ var BEMHTML = (function(exports) {
             buf.push("/>");
         } else {
             tag && buf.push(">");
-            var content = ("", __r26 = this["_mode"], this["_mode"] = "content", __r27 = $146.call(this), this["_mode"] = __r26, "", __r27);
+            var content = ("", __r26 = this["_mode"], this["_mode"] = "content", __r27 = $150.call(this), this["_mode"] = __r26, "", __r27);
             if (content || content === 0) {
                 var isBEM = this["block"] || this["elem"];
                 {
@@ -322,7 +322,7 @@ var BEMHTML = (function(exports) {
                     this["ctx"] = content;
                     var __r32 = this["_mode"];
                     this["_mode"] = "";
-                    $146.call(this);
+                    $150.call(this);
                     this["_notNewList"] = __r28;
                     this["position"] = __r29;
                     this["_listLength"] = __r30;
@@ -413,7 +413,7 @@ var BEMHTML = (function(exports) {
                             var __r5 = this["elemMods"];
                             this["elemMods"] = this["ctx"]["elemMods"] || {};
                             this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                            $146.call(this);
+                            $150.call(this);
                             undefined;
                             undefined;
                             this["_mode"] = __r0;
@@ -503,7 +503,7 @@ var BEMHTML = (function(exports) {
                                 var __r5 = this["elemMods"];
                                 this["elemMods"] = this["ctx"]["elemMods"] || {};
                                 this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                $146.call(this);
+                                $150.call(this);
                                 undefined;
                                 undefined;
                                 this["_mode"] = __r0;
@@ -1047,7 +1047,7 @@ var BEMHTML = (function(exports) {
                                     var __r5 = this["elemMods"];
                                     this["elemMods"] = this["ctx"]["elemMods"] || {};
                                     this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
+                                    $150.call(this);
                                     undefined;
                                     undefined;
                                     this["_mode"] = __r0;
@@ -1072,13 +1072,17 @@ var BEMHTML = (function(exports) {
         }
     }
     function $57() {
+        return "li";
+        return;
+    }
+    function $58() {
         var __this = this;
         return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
         return;
     }
-    function $58() {
+    function $59() {
         if (!!this["_lecture"] === false) {
-            return $57.call(this);
+            return $58.call(this);
         } else {
             if (!!this["_start"] === false) {
                 if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
@@ -1098,7 +1102,7 @@ var BEMHTML = (function(exports) {
             }
         }
     }
-    function $59() {
+    function $60() {
         var __this = this;
         var __t = this["_mode"];
         if (__t === "content") {
@@ -1111,19 +1115,24 @@ var BEMHTML = (function(exports) {
             }, {
                 elem: "presentation"
             }, {
-                block: "b-link",
-                mods: {
-                    pseudo: "yes",
-                    action: "edit-lecture"
-                },
-                content: "Редактировать"
-            }, {
-                block: "b-link",
-                mods: {
-                    pseudo: "yes",
-                    action: "remove-lecture"
-                },
-                content: "Удалить"
+                elem: "toolbox",
+                content: [ {
+                    block: "b-link",
+                    mods: {
+                        pseudo: "yes",
+                        action: "edit-lecture",
+                        style: "default"
+                    },
+                    content: "Редактировать"
+                }, {
+                    block: "b-link",
+                    mods: {
+                        pseudo: "yes",
+                        action: "remove-lecture",
+                        style: "default"
+                    },
+                    content: "Удалить"
+                } ]
             } ];
             return;
         } else if (__t === "attrs") {
@@ -1145,23 +1154,8 @@ var BEMHTML = (function(exports) {
                 return;
             }
         } else if (__t === "tag") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
+            return "li";
+            return;
         } else if (__t === "bem") {
             if (!!this["_start"] === false) {
                 if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
@@ -1181,7 +1175,27 @@ var BEMHTML = (function(exports) {
                 return;
             }
         } else if (__t === "default") {
-            return $58.call(this);
+            if (!!this["_lecture"] === false) {
+                return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
+                return;
+            } else {
+                if (!!this["_start"] === false) {
+                    if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
+                        (function(bem_) {
+                            this["BEM"] = bem_;
+                            this["BEM"]["I18N"] = function(keyset, key) {
+                                return key;
+                            };
+                        })(typeof BEM === "undefined" ? {} : BEM);
+                        return apply.call(this);
+                        return;
+                    } else {
+                        return $3.call(this);
+                    }
+                } else {
+                    return $7.call(this);
+                }
+            }
         } else if (__t === "js") {
             if (!!this["_start"] === false) {
                 if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
@@ -1321,7 +1335,7 @@ var BEMHTML = (function(exports) {
                                     var __r5 = this["elemMods"];
                                     this["elemMods"] = this["ctx"]["elemMods"] || {};
                                     this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
+                                    $150.call(this);
                                     undefined;
                                     undefined;
                                     this["_mode"] = __r0;
@@ -1346,986 +1360,22 @@ var BEMHTML = (function(exports) {
         }
     }
     function $61() {
-        var __this = this;
-        var __t = this["_mode"];
-        if (__t === "content") {
-            return this["_lecture"]["presentation"] ? this["_lecture"]["presentation"] : "–";
-            return;
-        } else if (__t === "attrs") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "tag") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "bem") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "default") {
-            if (!!this["_lecture"] === false) {
-                return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
-                return;
-            } else {
-                if (!!this["_start"] === false) {
-                    if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                        (function(bem_) {
-                            this["BEM"] = bem_;
-                            this["BEM"]["I18N"] = function(keyset, key) {
-                                return key;
-                            };
-                        })(typeof BEM === "undefined" ? {} : BEM);
-                        return apply.call(this);
-                        return;
-                    } else {
-                        return $3.call(this);
-                    }
-                } else {
-                    return $7.call(this);
-                }
-            }
-        } else if (__t === "js") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "mix") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "jsAttr") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "cls") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                if (!!this["_mode"] === false) {
-                    if (!this["_"].isSimple(this["ctx"]) === false) {
-                        this["_listLength"]--;
-                        var ctx = this["ctx"];
-                        (ctx && ctx !== true || ctx === 0) && this["_buf"].push(ctx);
-                        return;
-                    } else {
-                        if (!!this["ctx"] === false) {
-                            this["_listLength"]--;
-                            return;
-                        } else {
-                            if (!this["_"].isArray(this["ctx"]) === false) {
-                                var v = this["ctx"], l = v["length"], i = 0, prevPos = this["position"], prevNotNewList = this["_notNewList"];
-                                if (prevNotNewList) {
-                                    this["_listLength"] += l - 1;
-                                } else {
-                                    this["position"] = 0;
-                                    this["_listLength"] = l;
-                                }
-                                this["_notNewList"] = true;
-                                while (i < l) {
-                                    {
-                                        "";
-                                        var __r7 = this["ctx"];
-                                        this["ctx"] = v[i++];
-                                        apply.call(__this);
-                                        this["ctx"] = __r7;
-                                        "";
-                                    }
-                                    undefined;
-                                }
-                                undefined;
-                                prevNotNewList || (this["position"] = prevPos);
-                                return;
-                            } else {
-                                if (!true === false) {
-                                    var vBlock = this["ctx"]["block"], vElem = this["ctx"]["elem"], block = this["_currBlock"] || this["block"];
-                                    this["ctx"] || (this["ctx"] = {});
-                                    "";
-                                    var __r0 = this["_mode"];
-                                    this["_mode"] = "default";
-                                    var __r1 = this["block"];
-                                    this["block"] = vBlock || (vElem ? block : undefined);
-                                    var __r2 = this["_currBlock"];
-                                    this["_currBlock"] = vBlock || vElem ? undefined : block;
-                                    var __r3 = this["elem"];
-                                    this["elem"] = this["ctx"]["elem"];
-                                    var __r4 = this["mods"];
-                                    this["mods"] = (vBlock ? this["ctx"]["mods"] : this["mods"]) || {};
-                                    var __r5 = this["elemMods"];
-                                    this["elemMods"] = this["ctx"]["elemMods"] || {};
-                                    this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
-                                    undefined;
-                                    undefined;
-                                    this["_mode"] = __r0;
-                                    this["block"] = __r1;
-                                    this["_currBlock"] = __r2;
-                                    this["elem"] = __r3;
-                                    this["mods"] = __r4;
-                                    this["elemMods"] = __r5;
-                                    "";
-                                    undefined;
-                                    return;
-                                } else {
-                                    return $e.call(this, []);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    return $e.call(this, []);
-                }
-            }
-        }
+        return this["_lecture"]["presentation"] ? this["_lecture"]["presentation"] : "–";
+        return;
     }
     function $63() {
-        var __this = this;
-        var __t = this["_mode"];
-        if (__t === "content") {
-            return (this["_lecture"]["timeStart"] ? this["_lecture"]["timeStart"] : "–") + "–" + (this["_lecture"]["timeEnd"] ? this["_lecture"]["timeEnd"] : "–") + (this["_lecture"]["duration"] ? " (" + this["_lecture"]["duration"] + " мин.)" : "");
-            return;
-        } else if (__t === "attrs") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "tag") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "bem") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "default") {
-            if (!!this["_lecture"] === false) {
-                return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
-                return;
-            } else {
-                if (!!this["_start"] === false) {
-                    if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                        (function(bem_) {
-                            this["BEM"] = bem_;
-                            this["BEM"]["I18N"] = function(keyset, key) {
-                                return key;
-                            };
-                        })(typeof BEM === "undefined" ? {} : BEM);
-                        return apply.call(this);
-                        return;
-                    } else {
-                        return $3.call(this);
-                    }
-                } else {
-                    return $7.call(this);
-                }
-            }
-        } else if (__t === "js") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "mix") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "jsAttr") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "cls") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                if (!!this["_mode"] === false) {
-                    if (!this["_"].isSimple(this["ctx"]) === false) {
-                        this["_listLength"]--;
-                        var ctx = this["ctx"];
-                        (ctx && ctx !== true || ctx === 0) && this["_buf"].push(ctx);
-                        return;
-                    } else {
-                        if (!!this["ctx"] === false) {
-                            this["_listLength"]--;
-                            return;
-                        } else {
-                            if (!this["_"].isArray(this["ctx"]) === false) {
-                                var v = this["ctx"], l = v["length"], i = 0, prevPos = this["position"], prevNotNewList = this["_notNewList"];
-                                if (prevNotNewList) {
-                                    this["_listLength"] += l - 1;
-                                } else {
-                                    this["position"] = 0;
-                                    this["_listLength"] = l;
-                                }
-                                this["_notNewList"] = true;
-                                while (i < l) {
-                                    {
-                                        "";
-                                        var __r7 = this["ctx"];
-                                        this["ctx"] = v[i++];
-                                        apply.call(__this);
-                                        this["ctx"] = __r7;
-                                        "";
-                                    }
-                                    undefined;
-                                }
-                                undefined;
-                                prevNotNewList || (this["position"] = prevPos);
-                                return;
-                            } else {
-                                if (!true === false) {
-                                    var vBlock = this["ctx"]["block"], vElem = this["ctx"]["elem"], block = this["_currBlock"] || this["block"];
-                                    this["ctx"] || (this["ctx"] = {});
-                                    "";
-                                    var __r0 = this["_mode"];
-                                    this["_mode"] = "default";
-                                    var __r1 = this["block"];
-                                    this["block"] = vBlock || (vElem ? block : undefined);
-                                    var __r2 = this["_currBlock"];
-                                    this["_currBlock"] = vBlock || vElem ? undefined : block;
-                                    var __r3 = this["elem"];
-                                    this["elem"] = this["ctx"]["elem"];
-                                    var __r4 = this["mods"];
-                                    this["mods"] = (vBlock ? this["ctx"]["mods"] : this["mods"]) || {};
-                                    var __r5 = this["elemMods"];
-                                    this["elemMods"] = this["ctx"]["elemMods"] || {};
-                                    this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
-                                    undefined;
-                                    undefined;
-                                    this["_mode"] = __r0;
-                                    this["block"] = __r1;
-                                    this["_currBlock"] = __r2;
-                                    this["elem"] = __r3;
-                                    this["mods"] = __r4;
-                                    this["elemMods"] = __r5;
-                                    "";
-                                    undefined;
-                                    return;
-                                } else {
-                                    return $e.call(this, []);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    return $e.call(this, []);
-                }
-            }
-        }
+        return (this["_lecture"]["timeStart"] ? this["_lecture"]["timeStart"] : "–") + "–" + (this["_lecture"]["timeEnd"] ? this["_lecture"]["timeEnd"] : "–") + (this["_lecture"]["duration"] ? " (" + this["_lecture"]["duration"] + " мин.)" : "");
+        return;
     }
     function $65() {
-        var __this = this;
-        var __t = this["_mode"];
-        if (__t === "content") {
-            return this["_lecture"]["lector"] ? this["_lecture"]["lector"] : "<лектор не указан>";
-            return;
-        } else if (__t === "attrs") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "tag") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "bem") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "default") {
-            if (!!this["_lecture"] === false) {
-                return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
-                return;
-            } else {
-                if (!!this["_start"] === false) {
-                    if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                        (function(bem_) {
-                            this["BEM"] = bem_;
-                            this["BEM"]["I18N"] = function(keyset, key) {
-                                return key;
-                            };
-                        })(typeof BEM === "undefined" ? {} : BEM);
-                        return apply.call(this);
-                        return;
-                    } else {
-                        return $3.call(this);
-                    }
-                } else {
-                    return $7.call(this);
-                }
-            }
-        } else if (__t === "js") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "mix") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "jsAttr") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "cls") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                if (!!this["_mode"] === false) {
-                    if (!this["_"].isSimple(this["ctx"]) === false) {
-                        this["_listLength"]--;
-                        var ctx = this["ctx"];
-                        (ctx && ctx !== true || ctx === 0) && this["_buf"].push(ctx);
-                        return;
-                    } else {
-                        if (!!this["ctx"] === false) {
-                            this["_listLength"]--;
-                            return;
-                        } else {
-                            if (!this["_"].isArray(this["ctx"]) === false) {
-                                var v = this["ctx"], l = v["length"], i = 0, prevPos = this["position"], prevNotNewList = this["_notNewList"];
-                                if (prevNotNewList) {
-                                    this["_listLength"] += l - 1;
-                                } else {
-                                    this["position"] = 0;
-                                    this["_listLength"] = l;
-                                }
-                                this["_notNewList"] = true;
-                                while (i < l) {
-                                    {
-                                        "";
-                                        var __r7 = this["ctx"];
-                                        this["ctx"] = v[i++];
-                                        apply.call(__this);
-                                        this["ctx"] = __r7;
-                                        "";
-                                    }
-                                    undefined;
-                                }
-                                undefined;
-                                prevNotNewList || (this["position"] = prevPos);
-                                return;
-                            } else {
-                                if (!true === false) {
-                                    var vBlock = this["ctx"]["block"], vElem = this["ctx"]["elem"], block = this["_currBlock"] || this["block"];
-                                    this["ctx"] || (this["ctx"] = {});
-                                    "";
-                                    var __r0 = this["_mode"];
-                                    this["_mode"] = "default";
-                                    var __r1 = this["block"];
-                                    this["block"] = vBlock || (vElem ? block : undefined);
-                                    var __r2 = this["_currBlock"];
-                                    this["_currBlock"] = vBlock || vElem ? undefined : block;
-                                    var __r3 = this["elem"];
-                                    this["elem"] = this["ctx"]["elem"];
-                                    var __r4 = this["mods"];
-                                    this["mods"] = (vBlock ? this["ctx"]["mods"] : this["mods"]) || {};
-                                    var __r5 = this["elemMods"];
-                                    this["elemMods"] = this["ctx"]["elemMods"] || {};
-                                    this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
-                                    undefined;
-                                    undefined;
-                                    this["_mode"] = __r0;
-                                    this["block"] = __r1;
-                                    this["_currBlock"] = __r2;
-                                    this["elem"] = __r3;
-                                    this["mods"] = __r4;
-                                    this["elemMods"] = __r5;
-                                    "";
-                                    undefined;
-                                    return;
-                                } else {
-                                    return $e.call(this, []);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    return $e.call(this, []);
-                }
-            }
-        }
+        return this["_lecture"]["lector"] ? this["_lecture"]["lector"] : "<лектор не указан>";
+        return;
     }
     function $67() {
-        var __this = this;
-        var __t = this["_mode"];
-        if (__t === "content") {
-            return this["_lecture"]["caption"] ? this["_lecture"]["caption"] : "<название лекции не указано>";
-            return;
-        } else if (__t === "attrs") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "tag") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "bem") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "default") {
-            if (!!this["_lecture"] === false) {
-                return "", __r48 = this["_lecture"], this["_lecture"] = this["ctx"]["lecture"] ? this["ctx"]["lecture"] : true, __r49 = apply.call(__this), this["_lecture"] = __r48, "", __r49;
-                return;
-            } else {
-                if (!!this["_start"] === false) {
-                    if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                        (function(bem_) {
-                            this["BEM"] = bem_;
-                            this["BEM"]["I18N"] = function(keyset, key) {
-                                return key;
-                            };
-                        })(typeof BEM === "undefined" ? {} : BEM);
-                        return apply.call(this);
-                        return;
-                    } else {
-                        return $3.call(this);
-                    }
-                } else {
-                    return $7.call(this);
-                }
-            }
-        } else if (__t === "js") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "mix") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "jsAttr") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else if (__t === "cls") {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                return undefined;
-                return;
-            }
-        } else {
-            if (!!this["_start"] === false) {
-                if (!(typeof BEM === "undefined" || !BEM["I18N"]) === false) {
-                    (function(bem_) {
-                        this["BEM"] = bem_;
-                        this["BEM"]["I18N"] = function(keyset, key) {
-                            return key;
-                        };
-                    })(typeof BEM === "undefined" ? {} : BEM);
-                    return apply.call(this);
-                    return;
-                } else {
-                    return $3.call(this);
-                }
-            } else {
-                if (!!this["_mode"] === false) {
-                    if (!this["_"].isSimple(this["ctx"]) === false) {
-                        this["_listLength"]--;
-                        var ctx = this["ctx"];
-                        (ctx && ctx !== true || ctx === 0) && this["_buf"].push(ctx);
-                        return;
-                    } else {
-                        if (!!this["ctx"] === false) {
-                            this["_listLength"]--;
-                            return;
-                        } else {
-                            if (!this["_"].isArray(this["ctx"]) === false) {
-                                var v = this["ctx"], l = v["length"], i = 0, prevPos = this["position"], prevNotNewList = this["_notNewList"];
-                                if (prevNotNewList) {
-                                    this["_listLength"] += l - 1;
-                                } else {
-                                    this["position"] = 0;
-                                    this["_listLength"] = l;
-                                }
-                                this["_notNewList"] = true;
-                                while (i < l) {
-                                    {
-                                        "";
-                                        var __r7 = this["ctx"];
-                                        this["ctx"] = v[i++];
-                                        apply.call(__this);
-                                        this["ctx"] = __r7;
-                                        "";
-                                    }
-                                    undefined;
-                                }
-                                undefined;
-                                prevNotNewList || (this["position"] = prevPos);
-                                return;
-                            } else {
-                                if (!true === false) {
-                                    var vBlock = this["ctx"]["block"], vElem = this["ctx"]["elem"], block = this["_currBlock"] || this["block"];
-                                    this["ctx"] || (this["ctx"] = {});
-                                    "";
-                                    var __r0 = this["_mode"];
-                                    this["_mode"] = "default";
-                                    var __r1 = this["block"];
-                                    this["block"] = vBlock || (vElem ? block : undefined);
-                                    var __r2 = this["_currBlock"];
-                                    this["_currBlock"] = vBlock || vElem ? undefined : block;
-                                    var __r3 = this["elem"];
-                                    this["elem"] = this["ctx"]["elem"];
-                                    var __r4 = this["mods"];
-                                    this["mods"] = (vBlock ? this["ctx"]["mods"] : this["mods"]) || {};
-                                    var __r5 = this["elemMods"];
-                                    this["elemMods"] = this["ctx"]["elemMods"] || {};
-                                    this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
-                                    undefined;
-                                    undefined;
-                                    this["_mode"] = __r0;
-                                    this["block"] = __r1;
-                                    this["_currBlock"] = __r2;
-                                    this["elem"] = __r3;
-                                    this["mods"] = __r4;
-                                    this["elemMods"] = __r5;
-                                    "";
-                                    undefined;
-                                    return;
-                                } else {
-                                    return $e.call(this, []);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    return $e.call(this, []);
-                }
-            }
-        }
+        return this["_lecture"]["caption"] ? this["_lecture"]["caption"] : "<название лекции не указано>";
+        return;
     }
-    function $71() {
+    function $72() {
         return [ {
             elem: "day-num",
             content: this["_day"]["num"]
@@ -2591,7 +1641,7 @@ var BEMHTML = (function(exports) {
                                     var __r5 = this["elemMods"];
                                     this["elemMods"] = this["ctx"]["elemMods"] || {};
                                     this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                    $146.call(this);
+                                    $150.call(this);
                                     undefined;
                                     undefined;
                                     this["_mode"] = __r0;
@@ -2697,7 +1747,7 @@ var BEMHTML = (function(exports) {
                                 var __r5 = this["elemMods"];
                                 this["elemMods"] = this["ctx"]["elemMods"] || {};
                                 this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                $146.call(this);
+                                $150.call(this);
                                 undefined;
                                 undefined;
                                 this["_mode"] = __r0;
@@ -2750,7 +1800,7 @@ var BEMHTML = (function(exports) {
                     content: this["ctx"]["content"],
                     _wrap: true
                 };
-                $146.call(this);
+                $150.call(this);
                 this["_mode"] = __r44;
                 this["ctx"] = __r45;
                 "";
@@ -2799,7 +1849,7 @@ var BEMHTML = (function(exports) {
     }
     function $97() {
         var ctx = this["ctx"], props = [ "title", "target" ], p = typeof ctx["url"], a = {
-            href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $146.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
+            href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $150.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
         };
         while (p = props.pop()) {
             ctx[p] && (a[p] = ctx[p]);
@@ -2813,7 +1863,7 @@ var BEMHTML = (function(exports) {
             return;
         } else {
             var ctx = this["ctx"], props = [ "title", "target" ], p = typeof ctx["url"], a = {
-                href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $146.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
+                href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $150.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
             };
             while (p = props.pop()) {
                 ctx[p] && (a[p] = ctx[p]);
@@ -2842,7 +1892,7 @@ var BEMHTML = (function(exports) {
                             content: this["ctx"]["content"],
                             _wrap: true
                         };
-                        $146.call(this);
+                        $150.call(this);
                         this["_mode"] = __r44;
                         this["ctx"] = __r45;
                         "";
@@ -2894,7 +1944,7 @@ var BEMHTML = (function(exports) {
                     return;
                 } else {
                     var ctx = this["ctx"], props = [ "title", "target" ], p = typeof ctx["url"], a = {
-                        href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $146.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
+                        href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $150.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
                     };
                     while (p = props.pop()) {
                         ctx[p] && (a[p] = ctx[p]);
@@ -3064,7 +2114,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3109,7 +2159,7 @@ var BEMHTML = (function(exports) {
                 }
             } else if (__t === "attrs") {
                 var ctx = this["ctx"], props = [ "title", "target" ], p = typeof ctx["url"], a = {
-                    href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $146.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
+                    href: p === "undefined" || p === "string" ? ctx["url"] : (p = [], "", __r40 = this["_buf"], this["_buf"] = p, __r41 = this["_mode"], this["_mode"] = "", __r42 = this["ctx"], this["ctx"] = ctx["url"], __r43 = $150.call(this), this["_buf"] = __r40, this["_mode"] = __r41, this["ctx"] = __r42, "", __r43, p.join(""))
                 };
                 while (p = props.pop()) {
                     ctx[p] && (a[p] = ctx[p]);
@@ -3293,7 +2343,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3420,7 +2470,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3538,7 +2588,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3656,7 +2706,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3774,7 +2824,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -3892,7 +2942,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4010,7 +3060,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4128,7 +3178,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4246,7 +3296,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4364,7 +3414,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4482,7 +3532,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4600,7 +3650,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4711,7 +3761,7 @@ var BEMHTML = (function(exports) {
                 }
                 if (ctx["content"]) {
                     var cnt;
-                    params["content"] = (cnt = [], "", __r36 = this["_buf"], this["_buf"] = cnt, __r37 = this["_mode"], this["_mode"] = "", __r38 = this["ctx"], this["ctx"] = ctx["content"], __r39 = $146.call(this), this["_buf"] = __r36, this["_mode"] = __r37, this["ctx"] = __r38, "", __r39, cnt.join(""));
+                    params["content"] = (cnt = [], "", __r36 = this["_buf"], this["_buf"] = cnt, __r37 = this["_mode"], this["_mode"] = "", __r38 = this["ctx"], this["ctx"] = ctx["content"], __r39 = $150.call(this), this["_buf"] = __r36, this["_mode"] = __r37, this["ctx"] = __r38, "", __r39, cnt.join(""));
                 } else {
                     undefined;
                 }
@@ -4856,7 +3906,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -4974,7 +4024,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5092,7 +4142,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5122,7 +4172,7 @@ var BEMHTML = (function(exports) {
             block: "b-page",
             elem: "js",
             url: "//yandex.st/jquery/1.7.2/jquery.min.js"
-        }, __r35 = $146.call(this), this["_mode"] = __r33, this["ctx"] = __r34, "", __r35;
+        }, __r35 = $150.call(this), this["_mode"] = __r33, this["ctx"] = __r34, "", __r35;
         return;
     }
     function $120() {
@@ -5273,7 +4323,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5376,7 +4426,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5479,7 +4529,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5582,7 +4632,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5685,7 +4735,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5788,7 +4838,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5891,7 +4941,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -5994,7 +5044,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6097,7 +5147,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6200,7 +5250,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6303,7 +5353,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6406,7 +5456,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6509,7 +5559,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6612,7 +5662,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -6934,7 +5984,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -7052,7 +6102,7 @@ var BEMHTML = (function(exports) {
                                         var __r5 = this["elemMods"];
                                         this["elemMods"] = this["ctx"]["elemMods"] || {};
                                         this["block"] || this["elem"] ? this["position"] = (this["position"] || 0) + 1 : this["_listLength"]--;
-                                        $146.call(this);
+                                        $150.call(this);
                                         undefined;
                                         undefined;
                                         this["_mode"] = __r0;
@@ -7077,7 +6127,7 @@ var BEMHTML = (function(exports) {
             }
         }
     }
-    function $146() {
+    function $150() {
         if (!!this["elem"] === false) {
             var __t = this["block"];
             if (__t === "b-dialog") {
@@ -7443,33 +6493,117 @@ var BEMHTML = (function(exports) {
             } else if (__t === "b-lecture") {
                 var __t = this["elem"];
                 if (__t === "favicon") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "js") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "css") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "meta") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "body") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "head") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "presentation") {
-                    return $61.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $61.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $57.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "time") {
-                    return $63.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $63.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $57.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "lector") {
-                    return $65.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $65.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $57.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "caption") {
-                    return $67.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $67.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $57.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "inner") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "i18n") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else if (__t === "core") {
-                    return $59.call(this);
+                    return $60.call(this);
                 } else {
-                    return $59.call(this);
+                    return $60.call(this);
                 }
             } else if (__t === "b-day-sheduler") {
                 var __t = this["_mode"];
@@ -7514,12 +6648,11 @@ var BEMHTML = (function(exports) {
                     if (__t === "calendar") {
                         var __t = this["_mode"];
                         if (__t === "content") {
-                            return $71.call(this);
+                            return $72.call(this);
                         } else if (__t === "attrs") {
                             return $6.call(this);
                         } else if (__t === "tag") {
-                            return "li";
-                            return;
+                            return $57.call(this);
                         } else if (__t === "bem") {
                             return $6.call(this);
                         } else if (__t === "default") {
@@ -8114,13 +7247,97 @@ var BEMHTML = (function(exports) {
                 } else if (__t === "head") {
                     return $139.call(this);
                 } else if (__t === "presentation") {
-                    return $61.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $61.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $6.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "time") {
-                    return $63.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $63.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $6.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "lector") {
-                    return $65.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $65.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $6.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "caption") {
-                    return $67.call(this);
+                    var __t = this["_mode"];
+                    if (__t === "content") {
+                        return $67.call(this);
+                    } else if (__t === "attrs") {
+                        return $6.call(this);
+                    } else if (__t === "tag") {
+                        return $6.call(this);
+                    } else if (__t === "bem") {
+                        return $6.call(this);
+                    } else if (__t === "default") {
+                        return $59.call(this);
+                    } else if (__t === "js") {
+                        return $6.call(this);
+                    } else if (__t === "mix") {
+                        return $6.call(this);
+                    } else if (__t === "jsAttr") {
+                        return $6.call(this);
+                    } else if (__t === "cls") {
+                        return $6.call(this);
+                    } else {
+                        return $19.call(this);
+                    }
                 } else if (__t === "inner") {
                     return $139.call(this);
                 } else if (__t === "i18n") {

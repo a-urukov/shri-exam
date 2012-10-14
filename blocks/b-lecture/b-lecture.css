@@ -2,24 +2,42 @@
     overflow: hidden;
     padding: 10px;
     height: 60px;
+    position: relative;
+    line-height: 19px;
+    background-color: #ff670f !important;
+    color: white;
+    margin-bottom: 20px;
 }
 
 .b-lecture__time {
     float: left;
-    width: 20%;
+    width: 80px;
 }
 
 .b-lecture__caption {
-    float: right;
-    width: 70%;
+    margin-left: 90px;
 }
 
 .b-lecture__lector{
-    float: right;
-    width: 70%;
+    margin-left: 90px;
 }
 
 .b-lecture__presentation{
-    float: right;
-    width: 70%;
+    display: none;
+}
+
+.b-lecture:hover .b-lecture__toolbox {
+    display: block !important;
+}
+
+.b-lecture__toolbox {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display: none;
+}
+
+.b-lecture .b-link {
+    margin-left: 7px;
+    font-size: 12px;
 }

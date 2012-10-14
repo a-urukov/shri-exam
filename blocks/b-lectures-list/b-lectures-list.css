@@ -1,5 +1,10 @@
-.b-lecture
+div.b-lectures-list
 {
-    background-color: #ff670f !important;
-    color: white;
+    display: block;
+    height: 80px;
+    font-size: 14px !important;
+    background-color: #eee;
+    text-align: center;
+    line-height: 80px;
+    margin-bottom: 20px;
 }

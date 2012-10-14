@@ -7,8 +7,7 @@ BEM.DOM.decl('b-list-view', {
 
     // смена месяца
     setActiveMonth: function (date) {
-        var dateArray = this.findBlockOutside('b-view-container').getCalendarMonth(new Date(date));
-        var lecturesByDays = lecturesShedule.getLecturesByInterval(dateArray[0], dateArray[dateArray.length-1]);
+        var lecturesByDays = lecturesShedule.getLecturesByDate(date.getYear()+1900, date.getMonth());
         
         var bemjson = [];
         
@@ -17,7 +16,7 @@ BEM.DOM.decl('b-list-view', {
                 block: 'b-day',
                 mods: { view: 'list' },
                 day: {
-                    num: lecturesByDays[i].date.getDate(),
+                    num: dateToDayAndMonthString(lecturesByDays[i].date),
                     interval: lecturesShedule.getLecturesIntervalForDay(lecturesByDays[i])
                 },
             });
@@ -47,7 +46,12 @@ BEM.DOM.decl('b-list-view', {
             });
         };
         
-        BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        if (bemjson.length) {
+            BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        }
+        else {
+            BEM.DOM.update(this.domElem, BEMHTML.apply({ elem: 'empty', content: 'Нет лекций в этом месяце' }));
+        }
     }
 })
 })();

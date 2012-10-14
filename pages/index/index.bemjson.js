@@ -21,27 +21,52 @@
                 block: 'b-page-layout',
                 content: [
                     {
+                        block: 'b-toolbox',
+                        content: [
+                            {
+                                block: 'b-view-mode-switcher',
+                                js: { view: 'calendar-view' }
+                            },
+                            {
+                                block: 'b-link',
+                                mods: { pseudo: 'yes', action: 'import', style: 'default' },
+                                content: 'Импорт'
+                            },
+                            {
+                                block: 'b-link',
+                                mods: { pseudo: 'yes', action: 'export', style: 'default' },
+                                content: 'Экспорт'
+                            }
+                        ]
+                    },
+                    {
                         block: 'b-header',
-                        tag: 'h1',
-                        content: 'Расписание занятий'
+                        content:  [
+                            {
+                                tag: 'h1',
+                                elem: 'head',
+                                content: 'Расписание занятий на'
+                            },
+                            {
+                                block: 'b-month-switcher',
+                                js: { curMonthValue: new Date() },
+                            },
+                        ]
                     },
-                    {
-                        block: 'b-view-mode-switcher',
-                        js: { view: 'calendar-view' }
-                    },
-                    {
-                        block: 'b-month-switcher',
-                        js: { curMonthValue: new Date() },
-                    },
+                    
                     {
                         block: 'b-lectures-content-wrapper',
                     },
                     {
-                        block: 'b-dialog',
-                        js: true
+                        block: 'grid',
+                        content: '<script type="text/javascript" src="modulargrid.js"></script>'
                     }
                 ]
-            }
+            },
+            {
+                block: 'b-dialog',
+                js: true
+            },
         ]
     }
 ])

@@ -1,7 +1,8 @@
 /* ../../blocks/b-link/b-link.css begin */
-.b-link
+.b-link_style_default
 {
-
+    font-style: italic;
+    color: #117BC0 !important;
 }
 
 /* ../../blocks/b-link/b-link.css end */
@@ -37,19 +38,65 @@
 /* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-edit-lecture.css end */
 
 /* ../../blocks/b-calendar-view/b-calendar-view.css begin */
-.b-month-calendar
-{
+.b-calendar-view {
+    margin-top: 19px;
+    float: left;
 }
 
-/* ../../blocks/b-calendar-view/b-calendar-view.css end */
+.b-calendar-view__week {
+    overflow: hidden;
+}
 
-/* ../../blocks/b-day/_view/b-day_view_calendar.css begin */
+.b-calendar-view__week .b-calendar-view__day {
+    float: left;
+    width: 80px;
+    margin-right: 16px;
+    line-height: 20px;
+}
+
+.b-calendar-view__week .b-calendar-view__day_weekend_yes {
+    color: red;
+}
+
+.b-calendar-view__days-container {
+    overflow: hidden;
+    width: 686px;
+    margin-right: -16px;
+}
+
+.b-day_view_calendar {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    margin-right: 16px;
+    line-height: 20px;
+}
+
 .b-day_view_calendar.b-day_active_yes
 {
-    background-color: red;
+    background-color: #ff670f !important;
+    color: #fff !important;
 }
 
-/* ../../blocks/b-day/_view/b-day_view_calendar.css end */
+.b-day_view_calendar.b-day_hasLections_yes
+{
+    border-left: 1px solid #ff670f;
+    width: 79px;
+}
+
+.b-day_view_calendar .b-day__day-num {
+    margin: 10px 7px;
+}
+
+.b-day_view_calendar .b-day__interval {
+    margin: 2px 7px;
+    font-size: 11px !important;
+}
+
+
+/* ../../blocks/b-calendar-view/b-calendar-view.css end */
 
 /* ../../blocks/b-list-view/b-list-view.css begin */
 .b-list-view
@@ -58,38 +105,199 @@
 
 /* ../../blocks/b-list-view/b-list-view.css end */
 
-/* ../../blocks/b-day/_view/b-day_view_list.css begin */
-.b-day_view_list
+/* ../../blocks/b-day-sheduler/b-day-sheduler.css begin */
+.b-day-sheduler
 {
+    float: right;
+    width: 368px;
+    margin-top: 39px;
 }
 
-/* ../../blocks/b-day/_view/b-day_view_list.css end */
-
-/* ../../blocks/b-day-sheduler/b-day-sheduler.css begin */
-.b-day-sheduler {
-    color: red;
-    width: 100%;
+.b-day-sheduler .b-link_action_add-lecture {
+    display: block;
+    height: 80px;
+    font-size: 18px !important;
+    background-color: #ffe0ce;
+    text-align: center;
+    margin-top: 20px;
+    line-height: 80px;
 }
 
 /* ../../blocks/b-day-sheduler/b-day-sheduler.css end */
 
 /* ../../blocks/b-lecture/b-lecture.css begin */
-.b-lecture
-{
+.b-lecture {
+    overflow: hidden;
+    padding: 10px;
+    height: 60px;
 }
 
+.b-lecture__time {
+    float: left;
+    width: 20%;
+}
+
+.b-lecture__caption {
+    float: right;
+    width: 70%;
+}
+
+.b-lecture__lector{
+    float: right;
+    width: 70%;
+}
+
+.b-lecture__presentation{
+    float: right;
+    width: 70%;
+}
 /* ../../blocks/b-lecture/b-lecture.css end */
 
-/* ../../blocks/b-view-mode-switcher/b-view-mode-switcher.css begin */
-.b-mode-switcher
+/* ../../blocks/b-lectures-list/b-lectures-list.css begin */
+.b-lecture
 {
+    background-color: #ff670f !important;
+    color: white;
 }
 
+/* ../../blocks/b-lectures-list/b-lectures-list.css end */
+
+/* ../../blocks/b-page/b-page.css begin */
+.b-page {
+    min-width: 1100px;
+    padding: 0;
+    margin: 0;
+}
+
+body * {
+    padding: 0;
+    margin: 0;
+}
+
+li { list-style: none; }
+/* ../../blocks/b-page/b-page.css end */
+
+/* ../../blocks/b-page-layout/b-page-layout.css begin */
+.b-page-layout {
+    font-family: 'Times New Roman',serif;
+    font-size: 14px;
+    width: 1040px;
+    margin: 0 auto 0 auto;
+    position: relative;	
+    padding-top: 20px;
+}
+
+.b-lectures-content-wrapper {
+    overflow: hidden;
+}
+
+/* ../../blocks/b-page-layout/b-page-layout.css end */
+
+/* ../../blocks/b-toolbox/b-toolbox.css begin */
+.b-toolbox
+{
+    overflow: hidden;
+    margin-left: 288px;
+}
+
+.b-toolbox .b-link_style_default
+{
+    margin-left: 16px;
+    font-size: 16px;
+}
+
+/* ../../blocks/b-toolbox/b-toolbox.css end */
+
+/* ../../blocks/b-view-mode-switcher/b-view-mode-switcher.css begin */
+.b-view-mode-switcher
+{
+    float: left;
+    overflow: hidden;
+}
+
+.b-view-mode-switcher .b-link
+{
+    padding: 2px 11px 1px 11px;
+    display: block;
+    float: left;
+    height: 17px;
+    text-transform: uppercase;
+    font-style: normal;
+    color: #000;
+    background: #cfcfcf; /* Old browsers */
+    background: -moz-linear-gradient(top, #cfcfcf 0%, #d4d4d4 15%, #ececec 60%, #eeeeee 70%, #eeeeee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(15%,#d4d4d4), color-stop(60%,#ececec), color-stop(70%,#eeeeee), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%);
+}
+
+.b-view-mode-switcher .b-link .b-link__inner {
+    border: none !important;
+}
+
+.b-view-mode-switcher .b-link_active_yes
+{
+    background: #eee !important;
+    color: #999 !important;
+    cursor: default;
+}
 /* ../../blocks/b-view-mode-switcher/b-view-mode-switcher.css end */
+
+/* ../../blocks/b-header/b-header.css begin */
+.b-header 
+{
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 288px;
+}
+
+.b-header__head
+{
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 20px !important;
+    float: left;
+    margin-right: 3px;
+}
+
+/* ../../blocks/b-header/b-header.css end */
 
 /* ../../blocks/b-month-switcher/b-month-switcher.css begin */
 .b-month-switcher
 {
+    float: left;
+    text-transform: lowercase;
+    height: 22px;
+    overflow: hidden;
+    line-height: 19px; 
+}
+
+.b-month-switcher__current-month
+{
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 0px;
+}
+
+.b-month-switcher .b-link
+{
+    font-size: 35px !important;
+    color: black !important;
+    display: block;
+    float: left;
+    margin-top: -1px;
+}
+
+.b-month-switcher .b-link_action_next-month
+{
+    float: right !important;
+}
+
+.b-month-switcher .b-link__inner
+{
+    border: none !important;
 }
 
 /* ../../blocks/b-month-switcher/b-month-switcher.css end */

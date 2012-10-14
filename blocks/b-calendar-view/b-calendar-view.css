@@ -1,3 +1,57 @@
-.b-month-calendar
-{
+.b-calendar-view {
+    margin-top: 19px;
+    float: left;
 }
+
+.b-calendar-view__week {
+    overflow: hidden;
+}
+
+.b-calendar-view__week .b-calendar-view__day {
+    float: left;
+    width: 80px;
+    margin-right: 16px;
+    line-height: 20px;
+}
+
+.b-calendar-view__week .b-calendar-view__day_weekend_yes {
+    color: red;
+}
+
+.b-calendar-view__days-container {
+    overflow: hidden;
+    width: 686px;
+    margin-right: -16px;
+}
+
+.b-day_view_calendar {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    margin-right: 16px;
+    line-height: 20px;
+}
+
+.b-day_view_calendar.b-day_active_yes
+{
+    background-color: #ff670f !important;
+    color: #fff !important;
+}
+
+.b-day_view_calendar.b-day_hasLections_yes
+{
+    border-left: 1px solid #ff670f;
+    width: 79px;
+}
+
+.b-day_view_calendar .b-day__day-num {
+    margin: 10px 7px;
+}
+
+.b-day_view_calendar .b-day__interval {
+    margin: 2px 7px;
+    font-size: 11px !important;
+}
+

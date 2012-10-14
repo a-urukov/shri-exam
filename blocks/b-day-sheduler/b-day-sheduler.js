@@ -79,12 +79,6 @@ BEM.DOM.decl('b-day-sheduler', {
 
     }
 
-}, {
-
-    live : function() {
-        /* ... */
-    }
-
 });
 
 })();

@@ -1,0 +1,11 @@
+.b-toolbox
+{
+    overflow: hidden;
+    margin-left: 288px;
+}
+
+.b-toolbox .b-link_style_default
+{
+    margin-left: 16px;
+    font-size: 16px;
+}

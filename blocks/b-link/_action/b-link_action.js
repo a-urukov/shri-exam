@@ -31,7 +31,6 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, 
             this.viewModeSwitcher = this.findBlockOutside('b-view-mode-switcher');
         }
         
-        this.setMod('active', 'yes');
         this.viewModeSwitcher.setViewMode(this.getMod('view'));
     }
 });

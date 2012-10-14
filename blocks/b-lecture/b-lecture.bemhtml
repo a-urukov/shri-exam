@@ -6,17 +6,14 @@ block b-lecture, !this._lecture {
 
 block b-lecture {
     content: [
+        {
+            elem: 'time'
+        },
         { 
             elem: 'caption'
         },
         { 
             elem: 'lector'
-        },
-        {
-            elem: 'time'
-        },
-        { 
-            elem: 'presentation'
         },
         {
             block: 'b-link',
@@ -48,11 +45,5 @@ block b-lecture, elem time {
     content: {
         return (this._lecture.timeStart ? this._lecture.timeStart : '–') + '–' + (this._lecture.timeEnd ? this._lecture.timeEnd : '–')
                + (this._lecture.duration ? ' (' + this._lecture.duration + ' мин.)' : '');
-    }
-}
-
-block b-lecture, elem presentation {
-    content: {
-        return this._lecture.presentation ? this._lecture.presentation : '–';
     }
 }

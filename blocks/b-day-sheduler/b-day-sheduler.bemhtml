@@ -8,7 +8,7 @@ block b-day-sheduler {
         },
         {
             block: 'b-link',
-            mods: { action: 'add-lecture', pseudo: 'yes' },
+            mods: { action: 'add-lecture', pseudo: 'yes', style: 'default' },
             content: 'Добавить лекцию'
         }
     ]

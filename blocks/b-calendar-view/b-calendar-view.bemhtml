@@ -1,0 +1,51 @@
+block b-calendar-view {
+    content: [
+        {
+            elem: 'week',
+            tag: 'ul',
+            content: [
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'пн' 
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'вт' 
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'ср' 
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'чт' 
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'пт' 
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'сб',
+                    mods: { weekend: 'yes' }
+                },
+                {
+                    elem: 'day',
+                    tag: 'li',
+                    content: 'вс',
+                    mods: { weekend: 'yes' }
+                }
+            ]
+        },
+        {
+            elem: 'days-container',
+            tag: 'ul'
+        }
+    ]
+}

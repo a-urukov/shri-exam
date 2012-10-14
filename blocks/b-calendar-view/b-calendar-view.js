@@ -52,7 +52,7 @@ BEM.DOM.decl('b-calendar-view', {
         for (var i = 0; i < dateArray.length; i++) {
             bemjson.push( {
                 block: 'b-day',
-                mods: { view: 'calendar' },
+                mods: { view: 'calendar', hasLections: (intervalsForDays[i]) ? 'yes' : 'no' },
                 day: {
                     num: dateArray[i].getDate(),
                     interval: intervalsForDays[i]
@@ -61,7 +61,7 @@ BEM.DOM.decl('b-calendar-view', {
             });
         };
         
-        BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        BEM.DOM.update(this.elem('days-container'), BEMHTML.apply(bemjson));
         
         // смена активного дня
         this.activeDay = undefined;

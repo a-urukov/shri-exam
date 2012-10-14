@@ -1,20 +1,19 @@
 block b-lectures-list {
     tag: {
-        if (this.ctx.content) {        
+        if (this.ctx.content) {
             if (this.ctx.content.length) {
                 return 'ul';
             }
         }
         return 'div';
-    }
+    },
             
     content: {
-        if (this.ctx.content) {        
+        if (this.ctx.content) {
             if (this.ctx.content.length) {
                 return this.ctx.content;
             }
         }
         return 'Лекции в этот день отсутствуют';
     }
-         
 } 

@@ -48,7 +48,7 @@
             block: 'b-lecture'
         },
         {
-            block: 'b-lecture-list'
+            block: 'b-lectures-list'
         }
     ]
 })

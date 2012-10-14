@@ -1,3 +1,25 @@
-.b-lecture
-{
+.b-lecture {
+    overflow: hidden;
+    padding: 10px;
+    height: 60px;
+}
+
+.b-lecture__time {
+    float: left;
+    width: 20%;
+}
+
+.b-lecture__caption {
+    float: right;
+    width: 70%;
+}
+
+.b-lecture__lector{
+    float: right;
+    width: 70%;
+}
+
+.b-lecture__presentation{
+    float: right;
+    width: 70%;
 }

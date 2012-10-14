@@ -16,3 +16,7 @@ block b-day {
         }
     ]
 }
+
+block b-day, mod view calendar {
+    tag: 'li'
+}

@@ -3733,7 +3733,6 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'change-view-mode' }, 
             this.viewModeSwitcher = this.findBlockOutside('b-view-mode-switcher');
         }
         
-        this.setMod('active', 'yes');
         this.viewModeSwitcher.setViewMode(this.getMod('view'));
     }
 });
@@ -3964,7 +3963,7 @@ BEM.DOM.decl('b-calendar-view', {
         for (var i = 0; i < dateArray.length; i++) {
             bemjson.push( {
                 block: 'b-day',
-                mods: { view: 'calendar' },
+                mods: { view: 'calendar', hasLections: (intervalsForDays[i]) ? 'yes' : 'no' },
                 day: {
                     num: dateArray[i].getDate(),
                     interval: intervalsForDays[i]
@@ -3973,7 +3972,7 @@ BEM.DOM.decl('b-calendar-view', {
             });
         };
         
-        BEM.DOM.update(this.domElem, BEMHTML.apply(bemjson));
+        BEM.DOM.update(this.elem('days-container'), BEMHTML.apply(bemjson));
         
         // смена активного дня
         this.activeDay = undefined;
@@ -4103,25 +4102,6 @@ BEM.DOM.decl('b-list-view', {
 
 (function(undefined) {
 
-BEM.DOM.decl({ block: 'b-day', modName: 'view', modVal: 'list'}, {
-
-    onSetMod : {
-
-        'js' : function() {
-            /* ... */
-        }
-
-    }
-
-});
-
-})();
-;
-/** @requires BEM */
-/** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-day-sheduler', {
     
     getBemjsonForLecture : function(lecture) {
@@ -4198,12 +4178,6 @@ BEM.DOM.decl('b-day-sheduler', {
 
     }
 
-}, {
-
-    live : function() {
-        /* ... */
-    }
-
 });
 
 })();
@@ -4265,6 +4239,11 @@ BEM.DOM.decl('b-view-mode-switcher', {
     setViewMode: function(view, isFirstInit) {
         if ((view == this.params.view) && !isFirstInit){
             return;
+        }
+        
+        if (!isFirstInit) {
+            this.findBlockInside({ blockName : 'b-link', modName : 'view', modVal : this.params.view }).setMod('active', 'no');
+            this.findBlockInside({ blockName : 'b-link', modName : 'view', modVal : view }).setMod('active', 'yes');
         }
         
         BEM.DOM.update(this.lectionsViewContainer.domElem, BEMHTML.apply({ block: 'b-view-container', js: true, mods: { view: view } }));

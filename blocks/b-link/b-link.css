@@ -1,4 +1,5 @@
-.b-link
+.b-link_style_default
 {
-
+    font-style: italic;
+    color: #117BC0 !important;
 }

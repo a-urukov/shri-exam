@@ -1,4 +1,16 @@
-.b-day-sheduler {
-    color: red;
-    width: 100%;
+.b-day-sheduler
+{
+    float: right;
+    width: 368px;
+    margin-top: 39px;
+}
+
+.b-day-sheduler .b-link_action_add-lecture {
+    display: block;
+    height: 80px;
+    font-size: 18px !important;
+    background-color: #ffe0ce;
+    text-align: center;
+    margin-top: 20px;
+    line-height: 80px;
 }

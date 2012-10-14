@@ -10,6 +10,11 @@ BEM.DOM.decl('b-view-mode-switcher', {
             return;
         }
         
+        if (!isFirstInit) {
+            this.findBlockInside({ blockName : 'b-link', modName : 'view', modVal : this.params.view }).setMod('active', 'no');
+            this.findBlockInside({ blockName : 'b-link', modName : 'view', modVal : view }).setMod('active', 'yes');
+        }
+        
         BEM.DOM.update(this.lectionsViewContainer.domElem, BEMHTML.apply({ block: 'b-view-container', js: true, mods: { view: view } }));
         this.params.view = view;
     },

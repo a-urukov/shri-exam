@@ -70,15 +70,15 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'remove-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-lecture' }});
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'remove-lecture' }});
         
-        if (!this.daySheduler) {
-            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        if (!this.lectionBlock) {
+            this.lectionBlock = this.findBlockOutside('b-lecture');
         }
         
-        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        var callback = jQuery.proxy(this.lectionBlock, "remove"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Удаление лекции');
     }
 });
 

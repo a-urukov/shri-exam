@@ -1,0 +1,6 @@
+block b-dialog-content, mod type remove-lecture  {    
+    content: {
+        elem: 'answer',
+        content: 'Вы действительно хотите удалить лецию?'
+    }
+}

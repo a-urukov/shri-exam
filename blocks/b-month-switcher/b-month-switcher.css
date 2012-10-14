@@ -4,7 +4,7 @@
     text-transform: lowercase;
     height: 22px;
     overflow: hidden;
-    line-height: 19px; 
+    line-height: 21px; 
 }
 
 .b-month-switcher__current-month
@@ -20,7 +20,6 @@
     color: black !important;
     display: block;
     float: left;
-    margin-top: -1px;
 }
 
 .b-month-switcher .b-link_action_next-month

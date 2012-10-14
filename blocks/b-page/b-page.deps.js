@@ -25,6 +25,10 @@
             mods: { type: 'add-edit-lecture' }
         },
         {
+            block: 'b-dialog-content', 
+            mods: { type: 'remove-lecture' }
+        },
+        {
             block: 'b-view-container'
         },
         {

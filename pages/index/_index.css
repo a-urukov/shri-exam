@@ -30,13 +30,6 @@
 
 /* ../../bem-bl/blocks-desktop/b-link/_pseudo/b-link_pseudo_yes.css end */
 
-/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-edit-lecture.css begin */
-.b-dialog-content_type_add-lecture
-{
-}
-
-/* ../../blocks/b-dialog-content/_type/b-dialog-content_type_add-edit-lecture.css end */
-
 /* ../../blocks/b-calendar-view/b-calendar-view.css begin */
 .b-calendar-view {
     margin-top: 19px;
@@ -73,6 +66,10 @@
     margin-right: 16px;
     line-height: 20px;
     cursor: pointer;
+}
+
+.b-day_view_calendar.b-day:hover {
+    background-color: #FFE0CE;
 }
 
 .b-day_view_calendar.b-day_active_yes
@@ -261,24 +258,27 @@ li { list-style: none; }
 {
     float: left;
     overflow: hidden;
+    margin-right: 3px;
 }
 
 .b-view-mode-switcher .b-link
 {
-    padding: 2px 11px 1px 11px;
+    font-size: 12px;
+    padding: 4px 11px 1px 11px;
     display: block;
     float: left;
     height: 17px;
     text-transform: uppercase;
     font-style: normal;
     color: #000;
-    background: #cfcfcf; /* Old browsers */
-    background: -moz-linear-gradient(top, #cfcfcf 0%, #d4d4d4 15%, #ececec 60%, #eeeeee 70%, #eeeeee 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cfcfcf), color-stop(15%,#d4d4d4), color-stop(60%,#ececec), color-stop(70%,#eeeeee), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #cfcfcf 0%,#d4d4d4 15%,#ececec 60%,#eeeeee 70%,#eeeeee 100%);
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 0%, #eeeeee 30%, #ececec 40%, #d4d4d4 85%, #cfcfcf 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(30%,#eeeeee), color-stop(40%,#ececec), color-stop(85%,#d4d4d4), color-stop(100%,#cfcfcf)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cfcfcf',GradientType=0 ); /* IE6-9 */
 }
 
 .b-view-mode-switcher .b-link .b-link__inner {
@@ -305,7 +305,7 @@ li { list-style: none; }
 .b-header__head
 {
     font-weight: normal;
-    font-size: 20px;
+    font-size: 24px;
     line-height: 20px !important;
     float: left;
     margin-right: 3px;
@@ -320,7 +320,7 @@ li { list-style: none; }
     text-transform: lowercase;
     height: 22px;
     overflow: hidden;
-    line-height: 19px; 
+    line-height: 21px; 
 }
 
 .b-month-switcher__current-month
@@ -336,7 +336,6 @@ li { list-style: none; }
     color: black !important;
     display: block;
     float: left;
-    margin-top: -1px;
 }
 
 .b-month-switcher .b-link_action_next-month

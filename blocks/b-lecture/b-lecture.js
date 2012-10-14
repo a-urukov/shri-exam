@@ -32,6 +32,16 @@ BEM.DOM.decl('b-lecture', {
         }
         this.calendarBlock.updateDayBlock(l.date);
     },
+    
+    remove : function() {
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
+        }
+        var date = lecturesShedule.getLectureById(this.params.lectureId).date;
+        lecturesShedule.removeLecture(this.params.lectureId);
+        this.calendarBlock.updateDayBlock(date);
+        this.findBlockOutside('b-day-sheduler').onChangeActiveDay(date);
+    },
 
     onSetMod : {
 

@@ -201,8 +201,10 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     LecturesShedule.prototype.getLecturesIntervalForDay = function (lectionsByDay) {
         if (lectionsByDay) {
-            return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
+            if (lectionsByDay.lectures.length) {
+                return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
                         + dateToTimeString(getEndTime(lectionsByDay.lectures[lectionsByDay.lectures.length-1].date, lectionsByDay.lectures[lectionsByDay.lectures.length-1].duration));
+            }
         }
         
         return '';

@@ -3370,8 +3370,10 @@ function checkEqualsDateWithoutTime(date1, date2) {
     */
     LecturesShedule.prototype.getLecturesIntervalForDay = function (lectionsByDay) {
         if (lectionsByDay) {
-            return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
+            if (lectionsByDay.lectures.length) {
+                return dateToTimeString(lectionsByDay.lectures[0].date) + '—' 
                         + dateToTimeString(getEndTime(lectionsByDay.lectures[lectionsByDay.lectures.length-1].date, lectionsByDay.lectures[lectionsByDay.lectures.length-1].duration));
+            }
         }
         
         return '';
@@ -3782,15 +3784,15 @@ BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'edit-lecture' }, {
 BEM.DOM.decl({ name: 'b-link', modName: 'action', modVal: 'remove-lecture' }, {
     _onClick : function(e) {
         this.__base.apply(this, arguments);
-        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'add-lecture' }});
+        var content = BEMHTML.apply({ block: 'b-dialog-content', mods: { type: 'remove-lecture' }});
         
-        if (!this.daySheduler) {
-            this.daySheduler = this.findBlockOutside('b-day-sheduler');
+        if (!this.lectionBlock) {
+            this.lectionBlock = this.findBlockOutside('b-lecture');
         }
         
-        var callback = jQuery.proxy(this.daySheduler, "addLectureFormDialog"); 
+        var callback = jQuery.proxy(this.lectionBlock, "remove"); 
         
-        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Добавление лекции');
+        this.findBlockOutside('b-page').findBlockInside('b-dialog').show(content, callback, 'Удаление лекции');
     }
 });
 
@@ -3845,10 +3847,10 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lec
                 var l = lecturesShedule.getLectureById(this.params.lectureId);
                 
                 if (l.caption) {
-                    this.elem('input-caption').val(l.caption);
+                    this.elem('input-caption').val(l.caption.replace(/\'/g,""));
                 }
                 if (l.lector) {
-                    this.elem('input-lector').val(l.lector);
+                    this.elem('input-lector').val(l.lector.replace(/\'/g,""));
                 }
                 if (l.date) {
                     this.elem('input-time-start').val(dateToTimeString(l.date));
@@ -4232,6 +4234,16 @@ BEM.DOM.decl('b-lecture', {
             this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
         }
         this.calendarBlock.updateDayBlock(l.date);
+    },
+    
+    remove : function() {
+        if (!this.calendarBlock) {
+            this.calendarBlock = this.findBlockOutside('b-page').findBlockInside('b-calendar-view');
+        }
+        var date = lecturesShedule.getLectureById(this.params.lectureId).date;
+        lecturesShedule.removeLecture(this.params.lectureId);
+        this.calendarBlock.updateDayBlock(date);
+        this.findBlockOutside('b-day-sheduler').onChangeActiveDay(date);
     },
 
     onSetMod : {

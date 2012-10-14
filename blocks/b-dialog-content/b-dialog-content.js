@@ -27,10 +27,10 @@ BEM.DOM.decl({ block: 'b-dialog-content', modName: 'type', modVal: 'add-edit-lec
                 var l = lecturesShedule.getLectureById(this.params.lectureId);
                 
                 if (l.caption) {
-                    this.elem('input-caption').val(l.caption);
+                    this.elem('input-caption').val(l.caption.replace(/\'/g,""));
                 }
                 if (l.lector) {
-                    this.elem('input-lector').val(l.lector);
+                    this.elem('input-lector').val(l.lector.replace(/\'/g,""));
                 }
                 if (l.date) {
                     this.elem('input-time-start').val(dateToTimeString(l.date));

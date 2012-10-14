@@ -35,6 +35,10 @@
     cursor: pointer;
 }
 
+.b-day_view_calendar.b-day:hover {
+    background-color: #FFE0CE;
+}
+
 .b-day_view_calendar.b-day_active_yes
 {
     background-color: #ff670f !important;

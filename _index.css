@@ -1,0 +1,433 @@
+/* ../../blocks/b-link/b-link.css begin */
+.b-link_style_default
+{
+    font-style: italic;
+    color: #117BC0 !important;
+}
+
+/* ../../blocks/b-link/b-link.css end */
+
+/* ../../bem-bl/blocks-desktop/b-link/_pseudo/b-link_pseudo_yes.css begin */
+.b-link_pseudo_yes
+{
+    color: #1a3dc1;
+}
+
+.i-ua_js_yes .b-link_pseudo_yes
+{
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.i-ua_js_yes .b-link_pseudo_yes .b-link__inner
+{
+    text-decoration: none;
+
+    color: inherit;
+    border-bottom: 1px dotted;
+}
+
+/* ../../bem-bl/blocks-desktop/b-link/_pseudo/b-link_pseudo_yes.css end */
+
+/* ../../blocks/b-calendar-view/b-calendar-view.css begin */
+.b-calendar-view {
+    margin-top: 19px;
+    float: left;
+}
+
+.b-calendar-view__week {
+    overflow: hidden;
+}
+
+.b-calendar-view__week .b-calendar-view__day {
+    float: left;
+    width: 80px;
+    margin-right: 16px;
+    line-height: 20px;
+}
+
+.b-calendar-view__week .b-calendar-view__day_weekend_yes {
+    color: red;
+}
+
+.b-calendar-view__days-container {
+    overflow: hidden;
+    width: 686px;
+    margin-right: -16px;
+}
+
+.b-day_view_calendar {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    margin-right: 16px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.b-day_view_calendar.b-day:hover {
+    background-color: #FFE0CE;
+}
+
+.b-day_view_calendar.b-day_active_yes
+{
+    background-color: #ff670f !important;
+    color: #fff !important;
+}
+
+.b-day_view_calendar.b-day_hasLections_yes
+{
+    border-left: 1px solid #ff670f;
+    width: 79px;
+    color: #ff670f;
+}
+
+.b-day_view_calendar .b-day__day-num {
+    margin: 10px 7px;
+}
+
+.b-day_view_calendar .b-day__interval {
+    margin: 2px 7px;
+    font-size: 11px !important;
+}
+
+
+/* ../../blocks/b-calendar-view/b-calendar-view.css end */
+
+/* ../../blocks/b-list-view/b-list-view.css begin */
+.b-list-view {
+    margin: 20px 0 0 288px; 
+    overflow: hidden;
+}
+
+.b-day_view_list
+{
+    float: left;
+    width: 80px;
+}
+
+.b-lectures-list_view_list {
+    margin-left: 96px; 
+
+}
+
+.b-lectures-list_view_list .b-lecture {
+    background-color: #fff !important;
+    color: #000 !important;
+    border-left: 1px solid #ff670f;
+    padding-left: 16px;
+}
+
+.b-lectures-list_view_list .b-lecture:hover .b-lecture__toolbox {
+    display: none !important;
+}
+
+/* ../../blocks/b-list-view/b-list-view.css end */
+
+/* ../../blocks/b-day-sheduler/b-day-sheduler.css begin */
+.b-day-sheduler
+{
+    float: right;
+    width: 368px;
+    margin-top: 39px;
+}
+
+.b-day-sheduler .b-link_action_add-lecture {
+    display: block;
+    height: 80px;
+    font-size: 18px !important;
+    background-color: #ffe0ce;
+    text-align: center;
+    line-height: 80px;
+}
+
+/* ../../blocks/b-day-sheduler/b-day-sheduler.css end */
+
+/* ../../blocks/b-lecture/b-lecture.css begin */
+.b-lecture {
+    overflow: hidden;
+    padding: 10px;
+    height: 60px;
+    position: relative;
+    line-height: 19px;
+    background-color: #ff670f !important;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.b-lecture__time {
+    float: left;
+    width: 80px;
+}
+
+.b-lecture__caption {
+    margin-left: 90px;
+}
+
+.b-lecture__lector{
+    margin-left: 90px;
+}
+
+.b-lecture__presentation{
+    display: none;
+}
+
+.b-lecture:hover .b-lecture__toolbox {
+    display: block !important;
+}
+
+.b-lecture__toolbox {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display: none;
+}
+
+.b-lecture .b-link {
+    margin-left: 7px;
+    font-size: 12px;
+}
+
+/* ../../blocks/b-lecture/b-lecture.css end */
+
+/* ../../blocks/b-lectures-list/b-lectures-list.css begin */
+div.b-lectures-list
+{
+    display: block;
+    height: 80px;
+    font-size: 14px !important;
+    background-color: #eee;
+    text-align: center;
+    line-height: 80px;
+    margin-bottom: 20px;
+}
+
+/* ../../blocks/b-lectures-list/b-lectures-list.css end */
+
+/* ../../blocks/b-page/b-page.css begin */
+.b-page {
+    min-width: 1100px;
+    padding: 0;
+    margin: 0;
+    font-family: 'Times New Roman',serif;
+    font-size: 14px;
+}
+
+body * {
+    padding: 0;
+    margin: 0;
+}
+
+li { list-style: none; }
+/* ../../blocks/b-page/b-page.css end */
+
+/* ../../blocks/b-page-layout/b-page-layout.css begin */
+.b-page-layout {
+    width: 1040px;
+    margin: 0 auto 0 auto;
+    position: relative;	
+    padding-top: 20px;
+}
+
+.b-lectures-content-wrapper {
+    overflow: hidden;
+}
+
+/* ../../blocks/b-page-layout/b-page-layout.css end */
+
+/* ../../blocks/b-toolbox/b-toolbox.css begin */
+.b-toolbox
+{
+    overflow: hidden;
+    margin-left: 288px;
+}
+
+.b-toolbox .b-link_style_default
+{
+    margin-left: 16px;
+    font-size: 16px;
+}
+
+/* ../../blocks/b-toolbox/b-toolbox.css end */
+
+/* ../../blocks/b-view-mode-switcher/b-view-mode-switcher.css begin */
+.b-view-mode-switcher
+{
+    float: left;
+    overflow: hidden;
+    margin-right: 3px;
+}
+
+.b-view-mode-switcher .b-link
+{
+    font-size: 12px;
+    padding: 4px 11px 1px 11px;
+    display: block;
+    float: left;
+    height: 17px;
+    text-transform: uppercase;
+    font-style: normal;
+    color: #000;
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 0%, #eeeeee 30%, #ececec 40%, #d4d4d4 85%, #cfcfcf 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(30%,#eeeeee), color-stop(40%,#ececec), color-stop(85%,#d4d4d4), color-stop(100%,#cfcfcf)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #eeeeee 0%,#eeeeee 30%,#ececec 40%,#d4d4d4 85%,#cfcfcf 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cfcfcf',GradientType=0 ); /* IE6-9 */
+}
+
+.b-view-mode-switcher .b-link .b-link__inner {
+    border: none !important;
+}
+
+.b-view-mode-switcher .b-link_active_yes
+{
+    background: #eee !important;
+    color: #999 !important;
+    cursor: default;
+}
+/* ../../blocks/b-view-mode-switcher/b-view-mode-switcher.css end */
+
+/* ../../blocks/b-header/b-header.css begin */
+.b-header 
+{
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 288px;
+    height: 22px;
+}
+
+.b-header__head
+{
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 20px !important;
+    float: left;
+    margin-right: 3px;
+}
+
+/* ../../blocks/b-header/b-header.css end */
+
+/* ../../blocks/b-month-switcher/b-month-switcher.css begin */
+.b-month-switcher
+{
+    float: left;
+    text-transform: lowercase;
+    height: 22px;
+    overflow: hidden;
+    line-height: 21px; 
+}
+
+.b-month-switcher__current-month
+{
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 0px;
+}
+
+.b-month-switcher .b-link
+{
+    font-size: 35px !important;
+    color: black !important;
+    display: block;
+    float: left;
+}
+
+.b-month-switcher .b-link_action_next-month
+{
+    float: right !important;
+}
+
+.b-month-switcher .b-link__inner
+{
+    border: none !important;
+}
+
+/* ../../blocks/b-month-switcher/b-month-switcher.css end */
+
+/* ../../blocks/b-dialog/b-dialog.css begin */
+.b-dialog {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    display: none;
+}
+
+.b-dialog label {
+    font-size: 14px !important;
+    line-height: 20px;
+}
+.b-dialog-content {
+    padding: 20px 16px;
+}
+
+.b-dialog input {
+    border: 1px #cecece solid;
+    display: block;
+    width: 92%;
+    height: 20px;
+    padding: 5px 4%;
+    margin-bottom: 7px;
+}
+
+.b-dialog-content__input-duration {
+    border: none !important;
+    display: inline !important;
+    width: 50px !important;
+    margin-left: 3px;
+}
+
+.b-dialog-content__presentation {
+    display: none;
+}
+
+.b-dialog-content__textarea-data {
+    border: 1px #cecece solid;
+    display: block;
+    width: 96%;
+    height: 200px;
+    padding: 5px 2%;
+    margin-bottom: 7px;
+}
+
+.b-dialog .b-link{
+    margin-left: 10px;
+    font-size: 16px !important;
+}
+
+.b-dialog__dialog-box
+{
+    position: relative;
+    width: 384px;
+    background-color: #ffffff;
+    margin: 0 auto;
+    top: 160px;
+    padding-bottom: 40px;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.b-dialog__head {
+    background-color: #eee;
+    padding: 20px 0px 20px 16px;
+    font-size: 18px !important;
+}
+
+.b-dialog__bottom-toolbox {
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+}
+
+/* ../../blocks/b-dialog/b-dialog.css end */
+
